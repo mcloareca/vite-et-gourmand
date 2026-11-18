@@ -1,0 +1,29 @@
+{
+  "name": "vite-et-gourmand",
+  "version": "1.0.0",
+  "description": "Application web du traiteur Vite & Gourmand (ECF Studi DWWM)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env app.js",
+    "dev": "node --watch --env-file-if-exists=.env app.js",
+    "test": "node --test tests/*.test.js",
+    "init-db": "node --env-file-if-exists=.env scripts/init-db.js",
+    "sync-stats": "node --env-file-if-exists=.env scripts/sync-stats.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "chart.js": "^4.6.1",
+    "connect-pg-simple": "^10.0.0",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4",
+    "express-session": "^1.19.0",
+    "mongodb": "^7.9.0",
+    "nodemailer": "^10.6.0",
+    "pg": "^8.23.1"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}
