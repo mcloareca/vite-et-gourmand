@@ -83,5 +83,5 @@ Le 19/11/2026, les tests de bout en bout (56 vérifications HTTP ; la réinitial
 | Charte graphique PDF (palette, police, 3 maquettes bureau + 3 mobiles) | ✅ `docs/livrables/Charte_graphique_Vite_et_Gourmand.pdf` (wireframes + mockups) |
 | Documentation gestion de projet + lien outil (Trello/Notion/Jira) | 🟡 PDF prêt ; tableau Notion à importer depuis le CSV et à publier |
 | Documentation technique (choix techniques, environnement, MCD, diagrammes de cas d'utilisation et de séquence, déploiement) | ✅ `docs/livrables/Documentation_technique_Vite_et_Gourmand.pdf` (à mettre à jour après le déploiement) |
-| Copie à rendre (Word) | 🟡 brouillon rempli ; liens, identité et veille à compléter |
+| Copie à rendre (Word) | 🟡 remplie, liens GitHub et Render inclus ; reste à compléter par l’étudiant : identité, éditeur, veille personnelle, lien Notion |
 | Lien de déploiement + identifiants admin | ❌ |
