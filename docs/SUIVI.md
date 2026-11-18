@@ -26,3 +26,20 @@ Chaque étape indique ce qui est **terminé et testé**, ce qui est **codé mais
 - Livrables : charte graphique et maquettes, manuel d'utilisation PDF, gestion de projet (outil + documentation),
   diagrammes (cas d'utilisation, séquence, MCD), copie à rendre
 - Audit d'accessibilité RGAA plus poussé
+
+## Étape 2 – 18/11/2026 : livrables documentaires
+
+**Produit** (dossier `docs/livrables/`, sources HTML dans `docs/livrables/sources/`) :
+- Wireframes (3 bureau + 3 mobile) et mockups (3 bureau + 3 mobile, captures de l'interface réalisée) : `maquettes/`
+- `Charte_graphique_Vite_et_Gourmand.pdf` : palette, contrastes calculés, typographie, composants, maquettes
+- `Documentation_technique_Vite_et_Gourmand.pdf` : choix techniques, environnement, architecture, modèle de données,
+  cas d'utilisation, 2 diagrammes de séquence, sécurité, tests, déploiement, limites
+- `Manuel_utilisation_Vite_et_Gourmand.pdf` : identifiants et parcours des 4 rôles
+- `Gestion_de_projet_Vite_et_Gourmand.pdf` + `gestion-projet-taches.csv` (import Notion)
+- `ECF_TPDeveloppeurWebEtWebMobile_copiearendre_NOM_Prenom.docx` : brouillon rempli
+
+**Reste à compléter dans les documents** (surligné ou marqué « [à compléter] ») :
+- Liens GitHub, Notion, Render ; nom, prénom, date de naissance ; éditeur de code utilisé
+- Veille sécurité : à personnaliser avec la veille réellement effectuée
+- Capture de la page Statistiques (nécessite MongoDB) dans le manuel
+- Dates des étapes déploiement et rendu dans la gestion de projet

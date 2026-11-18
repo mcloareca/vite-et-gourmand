@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Manuel d'utilisation – Vite & Gourmand</title>
+<link rel="stylesheet" href="document.css">
+<style>
+  .etapes li { margin-bottom: 4px; }
+  figure.capture-page img { max-height: 105mm; object-fit: cover; object-position: top; }
+</style>
+</head>
+<body>
+<section class="couverture">
+  <p class="sur-titre">ECF – Titre professionnel Développeur Web et Web Mobile</p>
+  <h1>Manuel d'utilisation</h1>
+  <p class="logo-grand">Vite <span>&amp;</span> Gourmand</p>
+  <p class="meta">Version 1 – novembre 2026</p>
+</section>
+
+<h2>1. Présentation</h2>
+<p>Vite &amp; Gourmand est l'application web d'un traiteur bordelais. Elle permet :</p>
+<ul>
+  <li>aux <strong>visiteurs</strong> de découvrir l'entreprise et ses menus, et de la contacter ;</li>
+  <li>aux <strong>utilisateurs</strong> (clients inscrits) de commander un menu, de suivre leurs commandes et de donner leur avis ;</li>
+  <li>aux <strong>employés</strong> de traiter les commandes et de gérer les menus, les plats, les horaires et les avis ;</li>
+  <li>à l'<strong>administrateur</strong> de gérer les comptes employés et de consulter les statistiques.</li>
+</ul>
+<p><strong>Adresse de l'application</strong> : <!-- ADRESSE_PRODUCTION -->[à compléter après le déploiement]</p>
+<p class="note">Hébergement gratuit : si le site n'a pas été visité depuis 15 minutes, la première page peut mettre environ une minute à s'afficher.</p>
+
+<h2>2. Identifiants de test</h2>
+<table>
+  <thead><tr><th>Rôle</th><th>E-mail (identifiant)</th><th>Mot de passe</th></tr></thead>
+  <tbody>
+    <tr><td>Administrateur (José)</td><td>jose@vite-gourmand.fr</td><td>Jose#Admin2026</td></tr>
+    <tr><td>Employée (Julie)</td><td>julie@vite-gourmand.fr</td><td>Julie#Employe2026</td></tr>
+    <tr><td>Utilisateur (Camille Durand)</td><td>client@exemple.fr</td><td>Client#Test2026</td></tr>
+  </tbody>
+</table>
+<p>Vous pouvez aussi créer votre propre compte utilisateur depuis « Créer un compte ».</p>
+<p>Données de démonstration : 6 menus (Noël, Pâques, classique, végétarien, vegan, buffet événement) et 4 commandes du client Camille Durand
+(2 terminées avec un avis, 1 livrée, 1 en attente de validation).</p>
+
+<h2 class="saut">3. Parcours visiteur</h2>
+<h3>Consulter les menus</h3>
+<ol class="etapes">
+  <li>Cliquez sur <strong>Nos menus</strong>.</li>
+  <li>Utilisez les filtres (prix minimum et maximum, thème, régime, nombre de convives) : la liste se met à jour automatiquement, sans recharger la page.</li>
+  <li>Cliquez sur <strong>Voir le détail</strong> : composition par entrées, plats et desserts, allergènes de chaque plat, prix, stock restant
+      et <strong>conditions du menu</strong> (encadré jaune).</li>
+</ol>
+<figure class="capture-page"><img src="../captures/01-detail-menu.png" alt=""><figcaption>Détail d'un menu</figcaption></figure>
+<h3>Contacter l'entreprise</h3>
+<p>Page <strong>Contact</strong> : saisissez un titre, votre message et votre e-mail, puis <strong>Envoyer</strong>. Le message est transmis par e-mail à l'entreprise.</p>
+
+<h2 class="saut">4. Parcours utilisateur</h2>
+<h3>Créer un compte et se connecter</h3>
+<ol class="etapes">
+  <li><strong>Créer un compte</strong> : nom, prénom, GSM, e-mail, adresse postale et mot de passe
+      (au moins 10 caractères avec une majuscule, une minuscule, un chiffre et un caractère spécial). Un e-mail de bienvenue est envoyé.</li>
+  <li><strong>Connexion</strong> : e-mail et mot de passe. En cas d'oubli, « Mot de passe oublié ? » envoie un lien valable une heure.</li>
+</ol>
+<figure class="capture-page"><img src="../captures/02-inscription.png" alt=""><figcaption>Création de compte</figcaption></figure>
+
+<h3>Commander un menu</h3>
+<ol class="etapes">
+  <li>Depuis le détail d'un menu, cliquez sur <strong>Commander ce menu</strong> (si vous n'êtes pas connecté, l'application vous demande de vous connecter puis vous ramène à la commande).</li>
+  <li>Vos nom, prénom, e-mail et GSM sont repris de votre compte.</li>
+  <li>Indiquez la date, l'heure de livraison et l'adresse. Le menu choisi est déjà sélectionné ; ses conditions sont rappelées.</li>
+  <li>Indiquez le nombre de personnes (au moins le minimum du menu). Le <strong>détail du prix</strong> s'affiche : prix du menu, réduction de 10 %
+      à partir de 5 personnes de plus que le minimum, livraison (offerte à Bordeaux, sinon 5 € + 0,59 € par kilomètre, distance calculée automatiquement).</li>
+  <li>Acceptez les CGV et cliquez sur <strong>Valider la commande</strong>. Un e-mail de confirmation est envoyé.</li>
+</ol>
+<p><em>Exemple de test</em> : Menu de Pâques, 9 personnes, au 60 avenue du Maréchal de Lattre de Tassigny, 33700 Mérignac.
+Lors du test local, l'application a calculé 360,00 € − 36,00 € + 9,13 € de livraison (7 km) = 333,13 €.</p>
+<figure class="pleine saut"><img src="../maquettes/mockup-bureau-3-commande.png" alt=""><figcaption>Formulaire de commande avec le détail du prix</figcaption></figure>
+
+<h3 class="saut">Suivre et gérer ses commandes</h3>
+<p><strong>Mon espace</strong> liste vos commandes et permet de modifier vos informations personnelles.</p>
+<ul>
+  <li><strong>Commande en attente</strong> : vous pouvez la <strong>modifier</strong> (tout sauf le menu) ou l'<strong>annuler</strong>.</li>
+  <li><strong>Commande acceptée</strong> : la modification et l'annulation ne sont plus possibles ; le <strong>suivi</strong> affiche chaque étape avec sa date et son heure.</li>
+  <li><strong>Commande terminée</strong> : un e-mail vous invite à donner votre avis (note de 1 à 5 et commentaire), publié après validation par l'équipe.</li>
+</ul>
+<figure class="capture-page"><img src="../captures/05-commande-terminee.png" alt=""><figcaption>Commande terminée : suivi et avis</figcaption></figure>
+<p><em>À tester</em> avec le compte client : commande <strong>VG-DEMO-0004</strong> (en attente, modifiable) et <strong>VG-DEMO-0003</strong> (livrée, suivi visible).</p>
+
+<h2 class="saut">5. Parcours employé</h2>
+<p>Connectez-vous avec le compte de Julie. Le lien <strong>Espace employé</strong> donne accès à : Commandes, Menus, Plats, Horaires, Avis.</p>
+<h3>Traiter les commandes</h3>
+<ol class="etapes">
+  <li>Filtrez les commandes par <strong>statut</strong> ou par <strong>client</strong> (nom ou e-mail).</li>
+  <li>Cliquez sur <strong>Gérer</strong> puis choisissez le nouveau statut : acceptée, en préparation, en cours de livraison, livrée,
+      en attente du retour de matériel (le client reçoit un e-mail : 600 € de frais si le matériel n'est pas rendu sous 10 jours ouvrés), terminée (le client est invité à donner son avis).</li>
+  <li>Pour <strong>annuler</strong>, contactez d'abord le client, puis indiquez le mode de contact (téléphone ou e-mail) et le motif.</li>
+</ol>
+<figure class="capture-page"><img src="../captures/08-employe-gestion-commande.png" alt=""><figcaption>Gestion d'une commande</figcaption></figure>
+<h3>Menus, plats, horaires et avis</h3>
+<ul>
+  <li><strong>Menus</strong> : ajouter, modifier ou supprimer un menu (titre, description, thème, régime, minimum de personnes, prix, conditions, stock, plats, images).
+      Un menu déjà commandé ne peut pas être supprimé : mettez son stock à 0.</li>
+  <li><strong>Plats</strong> : nom, type (entrée, plat, dessert) et allergènes.</li>
+  <li><strong>Horaires</strong> : heures d'ouverture et de fermeture de chaque jour, ou « Fermé ». Elles s'affichent dans le pied de page.</li>
+  <li><strong>Avis</strong> : <strong>Valider</strong> (l'avis apparaît sur l'accueil) ou <strong>Refuser</strong>.</li>
+</ul>
+
+<h2 class="saut">6. Parcours administrateur</h2>
+<p>Connectez-vous avec le compte de José. L'administrateur a accès à tout l'espace employé, ainsi qu'à :</p>
+<ul>
+  <li><strong>Employés</strong> : créer un compte employé (prénom, nom, e-mail, mot de passe). L'employé reçoit un e-mail sans son mot de passe :
+      l'administrateur le lui communique en direct. <strong>Désactiver</strong> un compte le déconnecte immédiatement et bloque toute nouvelle connexion.
+      Il n'est pas possible de créer un administrateur depuis l'application.</li>
+  <li><strong>Statistiques</strong> : graphique du nombre de commandes par menu et tableau du chiffre d'affaires, filtrables par menu et par période.
+      Ces données proviennent de la base MongoDB ; les commandes annulées ne sont pas comptées.</li>
+</ul>
+<figure class="capture-page"><img src="../captures/11-admin-employes.png" alt=""><figcaption>Gestion des comptes employés</figcaption></figure>
+<!-- CAPTURE_STATISTIQUES -->
+</body>
+</html>

@@ -1,0 +1,39 @@
+/* Mise en page commune des documents PDF (impression A4 depuis Chrome) */
+@page { size: A4; margin: 18mm 16mm; }
+body { font: 10.5pt/1.5 -apple-system, "Segoe UI", Roboto, sans-serif; color: #2b2118; }
+h1, h2, h3, .logo-grand { font-family: Georgia, serif; color: #6b2519; }
+h2 { font-size: 17pt; border-bottom: 2px solid #c9a227; padding-bottom: 4px; margin-top: 26px; }
+h3 { font-size: 13pt; }
+.saut { break-before: page; }
+.couverture { height: 245mm; display: flex; flex-direction: column; justify-content: center; text-align: center; break-after: page; }
+.couverture h1 { font-size: 34pt; margin: 8px 0; }
+.sur-titre, .meta { color: #5c5148; }
+.logo-grand { font-size: 30pt; font-weight: bold; background: #8a3324; color: #fff; padding: 18px; border-radius: 8px; }
+.logo-grand span { color: #c9a227; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; break-inside: avoid; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid #e3d6c4; vertical-align: top; }
+thead th { background: #f3e9db; }
+.pastille { display: inline-block; width: 46px; height: 26px; border-radius: 4px; border: 1px solid #ccc; }
+.specimen { border: 1px solid #e3d6c4; border-radius: 8px; padding: 10px 16px; margin: 10px 0; }
+.serif { font-family: Georgia, serif; margin: 4px 0; }
+.sans { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 4px 0; }
+.composants { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+.bouton { background: #8a3324; color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 600; }
+.bouton.danger { background: #a1261b; }
+.etiquette { background: #f3e9db; border-radius: 999px; padding: 2px 10px; }
+.conditions { border-left: 6px solid #c9a227; background: #fff6d8; padding: 10px 14px; border-radius: 8px; }
+figure { margin: 0 0 10px; break-inside: avoid; }
+figure img { width: 100%; border: 1px solid #ccc; }
+figcaption { font-size: 9pt; color: #5c5148; text-align: center; }
+.maquettes-bureau { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.maquettes-bureau img { max-height: 70mm; object-fit: cover; object-position: top; }
+.maquettes-mobile { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.maquettes-mobile img { max-height: 225mm; object-fit: cover; object-position: top; }
+.pleine img { max-height: 225mm; object-fit: contain; object-position: top; }
+.diagramme { break-inside: avoid; margin: 10px 0 18px; text-align: center; }
+.note { background: #f3e9db; border-radius: 8px; padding: 8px 12px; }
+code { font-size: 9.5pt; background: #f3e9db; padding: 1px 4px; border-radius: 3px; }
+pre { background: #f3e9db; padding: 8px 12px; border-radius: 6px; white-space: pre-wrap; font-size: 9pt; }
+.capture { max-height: 120mm; object-fit: contain; object-position: top left; }
+.diagramme svg { max-height: 195mm; width: auto; }
+h2, h3 { break-after: avoid; }
