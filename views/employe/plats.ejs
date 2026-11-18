@@ -1,0 +1,56 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Plats</h1>
+<section class="bloc" aria-labelledby="titre-form-plat">
+  <h2 id="titre-form-plat"><%= enEdition ? 'Modifier le plat' : 'Ajouter un plat' %></h2>
+  <form method="post" action="/employe/plats<%= enEdition ? '/' + enEdition.plat_id : '' %>">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="grille-2">
+      <div class="champ"><label for="titre_plat">Nom du plat</label><input id="titre_plat" name="titre_plat" required maxlength="100" value="<%= enEdition ? enEdition.titre_plat : '' %>"></div>
+      <div class="champ">
+        <label for="type">Type</label>
+        <select id="type" name="type" required>
+          <% [['entree', 'Entrée'], ['plat', 'Plat'], ['dessert', 'Dessert']].forEach(([v, l]) => { %>
+            <option value="<%= v %>" <%= enEdition && enEdition.type === v ? 'selected' : '' %>><%= l %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+    <fieldset>
+      <legend>Allergènes</legend>
+      <div class="cases-en-ligne">
+        <% allergenes.forEach((a) => { %>
+          <span class="champ-case">
+            <input type="checkbox" id="all-<%= a.allergene_id %>" name="allergenes" value="<%= a.allergene_id %>" <%= enEdition && enEdition.allergene_ids.includes(a.allergene_id) ? 'checked' : '' %>>
+            <label for="all-<%= a.allergene_id %>"><%= a.libelle %></label>
+          </span>
+        <% }) %>
+      </div>
+    </fieldset>
+    <button class="bouton" type="submit">Enregistrer</button>
+    <% if (enEdition) { %><a href="/employe/plats">Annuler</a><% } %>
+  </form>
+</section>
+<div class="tableau-defilant">
+  <table>
+    <caption class="visually-hidden">Liste des plats</caption>
+    <thead><tr><th scope="col">Plat</th><th scope="col">Type</th><th scope="col">Allergènes</th><th scope="col">Actions</th></tr></thead>
+    <tbody>
+      <% plats.forEach((p) => { %>
+        <tr>
+          <td><%= p.titre_plat %></td>
+          <td><%= { entree: 'Entrée', plat: 'Plat', dessert: 'Dessert' }[p.type] %></td>
+          <td><%= p.allergenes || '–' %></td>
+          <td>
+            <a href="/employe/plats?modifier=<%= p.plat_id %>">Modifier<span class="visually-hidden"> <%= p.titre_plat %></span></a>
+            <form method="post" action="/employe/plats/<%= p.plat_id %>/supprimer" class="en-ligne">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="lien-bouton danger" type="submit">Supprimer<span class="visually-hidden"> <%= p.titre_plat %></span></button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/pied') %>

@@ -1,0 +1,9 @@
+<%- include('partials/tete') %>
+<h1>Choisir un nouveau mot de passe</h1>
+<% if (erreur) { %><p class="alerte alerte-erreur" role="alert"><%= erreur %></p><% } %>
+<form class="formulaire" method="post" action="/reinitialiser/<%= jeton %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <%- include('partials/champ-mot-de-passe') %>
+  <button class="bouton" type="submit">Enregistrer</button>
+</form>
+<%- include('partials/pied') %>

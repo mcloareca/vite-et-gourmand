@@ -1,0 +1,47 @@
+<%- include('partials/tete') %>
+<p><a href="/menus">← Tous les menus</a></p>
+<h1><%= menu.titre %></h1>
+<p class="etiquettes"><span>Thème : <%= menu.theme %></span> <span>Régime : <%= menu.regime %></span></p>
+
+<% if (images.length) { %>
+  <ul class="galerie" aria-label="Galerie d'images">
+    <% images.forEach((i) => { %><li><img src="<%= i.chemin %>" alt="<%= i.texte_alternatif %>" width="600" height="400"></li><% }) %>
+  </ul>
+<% } %>
+
+<p><%= menu.description %></p>
+
+<%# Conditions mises en évidence, comme demandé par l'énoncé %>
+<section class="conditions" aria-labelledby="titre-conditions">
+  <h2 id="titre-conditions">⚠ Conditions de ce menu</h2>
+  <p><%= menu.conditions || 'Aucune condition particulière.' %></p>
+</section>
+
+<section aria-labelledby="titre-plats">
+  <h2 id="titre-plats">Composition</h2>
+  <% [['entree', 'Entrées'], ['plat', 'Plats'], ['dessert', 'Desserts']].forEach(([type, libelle]) => {
+       const liste = plats.filter((p) => p.type === type); if (!liste.length) return; %>
+    <h3><%= libelle %></h3>
+    <ul>
+      <% liste.forEach((p) => { %>
+        <li><%= p.titre_plat %>
+          <small class="allergenes">Allergènes : <%= p.allergenes || 'aucun' %></small></li>
+      <% }) %>
+    </ul>
+  <% }) %>
+</section>
+
+<section class="bloc" aria-labelledby="titre-prix">
+  <h2 id="titre-prix">Prix et disponibilité</h2>
+  <p class="prix"><strong><%= euros(menu.prix_minimum) %></strong> pour <%= menu.nombre_personne_minimum %> personnes minimum
+     (soit <%= euros(menu.prix_minimum / menu.nombre_personne_minimum) %> par personne).</p>
+  <p>10 % de réduction à partir de <%= menu.nombre_personne_minimum + 5 %> personnes.</p>
+  <% if (menu.quantite_restante > 0) { %>
+    <p>Encore <%= menu.quantite_restante %> commande<%= menu.quantite_restante > 1 ? 's' : '' %> possible<%= menu.quantite_restante > 1 ? 's' : '' %>.</p>
+    <a class="bouton" href="/commande?menu=<%= menu.menu_id %>">Commander ce menu</a>
+    <% if (!utilisateur) { %><p><small>Vous devrez vous connecter ou créer un compte pour commander.</small></p><% } %>
+  <% } else { %>
+    <p class="epuise">Ce menu n'est plus disponible pour le moment.</p>
+  <% } %>
+</section>
+<%- include('partials/pied') %>

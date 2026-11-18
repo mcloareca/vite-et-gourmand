@@ -1,0 +1,11 @@
+<%# Champ mot de passe + confirmation, réutilisé par l'inscription et la réinitialisation %>
+<div class="champ">
+  <label for="password">Mot de passe</label>
+  <input type="password" id="password" name="password" required minlength="10" autocomplete="new-password"
+         pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{10,}" aria-describedby="aide-mdp">
+  <small id="aide-mdp">Au moins 10 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.</small>
+</div>
+<div class="champ">
+  <label for="confirmation">Confirmer le mot de passe</label>
+  <input type="password" id="confirmation" name="confirmation" required minlength="10" autocomplete="new-password">
+</div>

@@ -1,0 +1,55 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<p><a href="/employe/menus">← Menus</a></p>
+<h1><%= titre %></h1>
+<form class="formulaire" method="post" action="/employe/menus<%= menu.menu_id ? '/' + menu.menu_id : '' %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="champ"><label for="titre">Titre</label><input id="titre" name="titre" required maxlength="100" value="<%= menu.titre || '' %>"></div>
+  <div class="champ"><label for="description">Description</label><textarea id="description" name="description" required rows="3"><%= menu.description || '' %></textarea></div>
+  <div class="grille-2">
+    <div class="champ">
+      <label for="theme_id">Thème</label>
+      <select id="theme_id" name="theme_id" required>
+        <% themes.forEach((t) => { %><option value="<%= t.theme_id %>" <%= menu.theme_id === t.theme_id ? 'selected' : '' %>><%= t.libelle %></option><% }) %>
+      </select>
+    </div>
+    <div class="champ">
+      <label for="regime_id">Régime</label>
+      <select id="regime_id" name="regime_id" required>
+        <% regimes.forEach((r) => { %><option value="<%= r.regime_id %>" <%= menu.regime_id === r.regime_id ? 'selected' : '' %>><%= r.libelle %></option><% }) %>
+      </select>
+    </div>
+    <div class="champ"><label for="nombre_personne_minimum">Nombre de personnes minimum</label><input type="number" id="nombre_personne_minimum" name="nombre_personne_minimum" required min="1" value="<%= menu.nombre_personne_minimum || '' %>"></div>
+    <div class="champ"><label for="prix_minimum">Prix pour ce nombre de personnes (€)</label><input type="number" id="prix_minimum" name="prix_minimum" required min="0.01" step="0.01" value="<%= menu.prix_minimum || '' %>"></div>
+    <div class="champ"><label for="quantite_restante">Stock (commandes possibles)</label><input type="number" id="quantite_restante" name="quantite_restante" required min="0" value="<%= menu.quantite_restante ?? '' %>"></div>
+  </div>
+  <div class="champ"><label for="conditions">Conditions (délai de commande, conservation...)</label><textarea id="conditions" name="conditions" rows="3"><%= menu.conditions || '' %></textarea></div>
+
+  <fieldset>
+    <legend>Plats du menu</legend>
+    <% [['entree', 'Entrées'], ['plat', 'Plats'], ['dessert', 'Desserts']].forEach(([type, libelle]) => { %>
+      <p><strong><%= libelle %></strong></p>
+      <% plats.filter((p) => p.type === type).forEach((p) => { %>
+        <div class="champ-case">
+          <input type="checkbox" id="plat-<%= p.plat_id %>" name="plats" value="<%= p.plat_id %>" <%= platsMenu.includes(p.plat_id) ? 'checked' : '' %>>
+          <label for="plat-<%= p.plat_id %>"><%= p.titre_plat %></label>
+        </div>
+      <% }) %>
+    <% }) %>
+  </fieldset>
+
+  <fieldset>
+    <legend>Images de la galerie</legend>
+    <p class="aide">Images présentes dans le dossier public/images/menus du projet.</p>
+    <ul class="choix-images">
+      <% images.forEach((f, i) => { %>
+        <li>
+          <input type="checkbox" id="img-<%= i %>" name="images" value="<%= f %>" <%= imagesMenu.includes(f) ? 'checked' : '' %>>
+          <label for="img-<%= i %>"><img src="/images/menus/<%= f %>" alt="" width="120" height="80"> <%= f %></label>
+        </li>
+      <% }) %>
+    </ul>
+  </fieldset>
+  <button class="bouton" type="submit">Enregistrer le menu</button>
+</form>
+<%- include('../partials/pied') %>

@@ -1,0 +1,13 @@
+<nav class="sous-nav" aria-label="Espace employé">
+  <ul>
+    <li><a href="/employe">Commandes</a></li>
+    <li><a href="/employe/menus">Menus</a></li>
+    <li><a href="/employe/plats">Plats</a></li>
+    <li><a href="/employe/horaires">Horaires</a></li>
+    <li><a href="/employe/avis">Avis</a></li>
+    <% if (utilisateur.role === 'administrateur') { %>
+      <li><a href="/admin/employes">Employés</a></li>
+      <li><a href="/admin/statistiques">Statistiques</a></li>
+    <% } %>
+  </ul>
+</nav>

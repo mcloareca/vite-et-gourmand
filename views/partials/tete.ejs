@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= titre %> | Vite &amp; Gourmand</title>
+  <meta name="description" content="Vite & Gourmand, traiteur à Bordeaux depuis 25 ans : menus pour Noël, Pâques et tous vos événements.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+  <header class="entete">
+    <a class="logo" href="/">Vite <span>&amp;</span> Gourmand</a>
+    <nav aria-label="Menu principal">
+      <ul class="nav">
+        <li><a href="/" <%- cheminActuel === '/' ? 'aria-current="page"' : '' %>>Accueil</a></li>
+        <li><a href="/menus" <%- cheminActuel.startsWith('/menus') ? 'aria-current="page"' : '' %>>Nos menus</a></li>
+        <li><a href="/contact" <%- cheminActuel === '/contact' ? 'aria-current="page"' : '' %>>Contact</a></li>
+        <% if (!utilisateur) { %>
+          <li><a href="/connexion">Connexion</a></li>
+          <li><a class="bouton bouton-petit" href="/inscription">Créer un compte</a></li>
+        <% } else { %>
+          <% if (utilisateur.role === 'administrateur') { %><li><a href="/admin">Administration</a></li><% } %>
+          <% if (utilisateur.role !== 'utilisateur') { %><li><a href="/employe">Espace employé</a></li><% } %>
+          <li><a href="/compte">Mon espace</a></li>
+          <li>
+            <form method="post" action="/deconnexion">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="lien-bouton" type="submit">Déconnexion (<%= utilisateur.prenom %>)</button>
+            </form>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+  <main id="contenu" class="conteneur">
+    <% if (message) { %><p class="alerte" role="status"><%= message %></p><% } %>

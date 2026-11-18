@@ -1,0 +1,46 @@
+<%- include('../partials/tete') %>
+<p><a href="/compte">← Mon espace</a></p>
+<h1>Commande <%= commande.numero_commande %></h1>
+<%# Le suivi n'est affiché qu'une fois la commande acceptée (énoncé) %>
+<%- include('../partials/detail-commande', { suivi: commande.statut === 'en_attente' ? [] : suivi }) %>
+
+<% if (commande.statut === 'en_attente') { %>
+  <section class="bloc">
+    <h2>Modifier ou annuler</h2>
+    <p>Votre commande n'a pas encore été acceptée : vous pouvez la modifier (sauf le menu) ou l'annuler.</p>
+    <a class="bouton" href="/compte/commandes/<%= commande.commande_id %>/modifier">Modifier la commande</a>
+    <form method="post" action="/compte/commandes/<%= commande.commande_id %>/annuler" class="en-ligne">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button class="bouton bouton-danger" type="submit">Annuler la commande</button>
+    </form>
+  </section>
+<% } %>
+
+<% if (commande.statut === 'terminee') { %>
+  <section class="bloc" aria-labelledby="titre-avis">
+    <h2 id="titre-avis">Votre avis</h2>
+    <% if (avis) { %>
+      <p>Merci ! Vous avez donné la note de <%= avis.note %>/5 : « <%= avis.description %> »
+        (<%= avis.statut === 'valide' ? 'publié' : avis.statut === 'refuse' ? 'non publié' : 'en attente de validation' %>).</p>
+    <% } else { %>
+      <form class="formulaire" method="post" action="/compte/commandes/<%= commande.commande_id %>/avis">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <fieldset>
+          <legend>Votre note</legend>
+          <div class="notes">
+            <% for (let n = 1; n <= 5; n++) { %>
+              <input type="radio" id="note-<%= n %>" name="note" value="<%= n %>" required>
+              <label for="note-<%= n %>"><%= n %> / 5</label>
+            <% } %>
+          </div>
+        </fieldset>
+        <div class="champ">
+          <label for="description">Votre commentaire</label>
+          <textarea id="description" name="description" required maxlength="500" rows="4"></textarea>
+        </div>
+        <button class="bouton" type="submit">Envoyer mon avis</button>
+      </form>
+    <% } %>
+  </section>
+<% } %>
+<%- include('../partials/pied') %>
