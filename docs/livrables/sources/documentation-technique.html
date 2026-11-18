@@ -265,7 +265,7 @@ sequenceDiagram
   <li><strong>Tests unitaires automatiques</strong> (<code>npm test</code>, 14 tests) : calcul du prix (minimum, seuil de réduction, livraison, arrondis), règles de mot de passe, e-mail, téléphone, distance.</li>
   <li><strong>Tests de bout en bout</strong> (script de vérification HTTP, 65 vérifications, exécuté le 18/11/2026 en local, puis rejoué sur les bases Neon et Atlas et enfin sur le site en production) : parcours visiteur, inscription, commande, espaces utilisateur, employé et administrateur, CSRF, contrôles d'accès.</li>
   <li><strong>Production</strong> (19/11/2026) : toutes les vérifications passent sur le site déployé ; la seule différence est une requête de test volontairement malveillante (<code>theme=1 OR 1=1</code>), bloquée en amont par le pare-feu Cloudflare de Render (403). Les statistiques écrites par le serveur dans MongoDB sont identiques aux commandes de PostgreSQL. Les données de démonstration ont été réinitialisées après les tests. L'envoi réel des e-mails (SMTP) n'est pas testé : les messages sont écrits dans les journaux.</li>
-  <li><strong>Vérifications manuelles</strong> dans Chrome : filtrage sans rechargement, prix en direct, affichage mobile (390 px), console sans erreur.</li>
+  <li><strong>Vérifications manuelles</strong> dans Chrome : filtrage sans rechargement, prix en direct, affichage mobile (375 px dans le navigateur, captures des maquettes à 390 px), console sans erreur.</li>
 </ul>
 
 <h2>11. Déploiement</h2>
