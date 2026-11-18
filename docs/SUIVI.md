@@ -16,7 +16,7 @@ Chaque étape indique ce qui est **terminé et testé**, ce qui est **codé mais
 - Affichage mobile (375 px)
 
 **Codé mais pas encore testé** :
-- Statistiques MongoDB (graphique et chiffre d'affaires) : en attente d'un cluster Atlas
+- Statistiques MongoDB : testées à l'étape 3 (voir plus bas)
 - Envoi réel des e-mails : en attente d'un compte SMTP (les 7 types de mails sont bien déclenchés, affichés dans la console)
 
 **Reste à faire** :
@@ -43,3 +43,18 @@ Chaque étape indique ce qui est **terminé et testé**, ce qui est **codé mais
 - Veille sécurité : à personnaliser avec la veille réellement effectuée
 - Capture de la page Statistiques (nécessite MongoDB) dans le manuel
 - Dates des étapes déploiement et rendu dans la gestion de projet
+
+## Étape 3 – 18/11/2026 : vraies bases de données
+
+**Terminé et testé (en local, avec les bases cloud)** :
+- PostgreSQL sur Neon (Francfort) et MongoDB Atlas (cluster gratuit, Francfort) : connexions vérifiées
+- `npm run init-db` exécuté : tables et données de démonstration dans Neon, 4 commandes copiées dans MongoDB
+- Tests de bout en bout rejoués avec ces bases : 65 vérifications, toutes réussies
+- Statistiques MongoDB : graphique affiché (navigateur, aucune erreur console), tableau du chiffre d'affaires,
+  filtres par menu et par période ; chiffres identiques à PostgreSQL ; un seul document par commande
+  (pas de double comptage) ; commandes annulées exclues
+- Données de démonstration remises à zéro après les tests (`npm run init-db`)
+
+**Reste à faire** :
+- Pousser le dépôt sur GitHub, déployer sur Render, vérifier en production
+- Envoi réel des e-mails (SMTP Brevo) : non testé

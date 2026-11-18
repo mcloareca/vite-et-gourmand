@@ -7,6 +7,7 @@ Légende :
 - ⚠️ **Écart** : choix différent de l'énoncé, justifié
 
 Les tests « locaux » ont été faits le 18/11/2026 sur un PostgreSQL de test local, **sans MongoDB ni SMTP réels**.
+Le 18/11/2026, les mêmes tests de bout en bout (65 vérifications) ont été rejoués en local **avec les vraies bases Neon (PostgreSQL) et MongoDB Atlas** : tous passent. Le SMTP réel n'est toujours pas testé.
 
 ## Fonctionnalités
 
@@ -51,14 +52,14 @@ Les tests « locaux » ont été faits le 18/11/2026 sur un PostgreSQL de test l
 | Admin : désactiver un employé | ✅ | `routes/admin.js` | test e2e (session coupée, connexion refusée) |
 | Admin créé par nous, impossible d'en créer depuis l'app | ✅ | `donnees.sql`, `routes/admin.js` | test e2e (role_id envoyé ignoré) |
 | Admin : tout ce que fait un employé | ✅ | `exigerRole('employe', 'administrateur')` | test e2e |
-| Admin : graphique commandes par menu depuis NoSQL | 🟡 | `config/mongo.js`, `views/admin/statistiques.ejs` | **non testé avec un vrai MongoDB** (en attente d'Atlas) |
-| Admin : CA par menu, filtres menu et durée | 🟡 | `config/mongo.js` | idem |
-| Pas de double comptage dans MongoDB | 🟡 | index unique + upsert | idem |
+| Admin : graphique commandes par menu depuis NoSQL | ✅ | `config/mongo.js`, `views/admin/statistiques.ejs` | testé en local avec MongoDB Atlas : graphique affiché, chiffres identiques à PostgreSQL |
+| Admin : CA par menu, filtres menu et durée | ✅ | `config/mongo.js` | filtres menu et période testés avec Atlas ; total 833,72 € = PostgreSQL |
+| Pas de double comptage dans MongoDB | ✅ | index unique + upsert | testé : 5 commandes → 5 documents après plusieurs changements de statut ; commande annulée exclue |
 | Contact : titre, description, e-mail → mail à l'entreprise | ✅ | `routes/public.js` | test e2e (mail déclenché) |
 | RGPD | 🟡 | mentions légales, consentement à l'inscription, cookie technique uniquement | pas de suppression de compte en libre-service (sur demande via contact) |
 | Accessibilité RGAA | 🟡 | labels, lien d'évitement, focus visible, `aria-live`, tableaux avec `caption`/`scope` | audit complet (contrastes, lecteur d'écran) à faire |
 | Responsive | ✅ | `public/css/style.css` | navigateur 375 px : pas de défilement horizontal |
-| Application déployée | ❌ | — | en attente des comptes Neon / Atlas / Render / GitHub |
+| Application déployée | ❌ | — | bases Neon et Atlas créées et initialisées ; reste GitHub + Render |
 
 ## Écarts assumés avec le MCD de l'annexe
 
