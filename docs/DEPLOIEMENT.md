@@ -1,6 +1,12 @@
 # Déploiement
 
-État au 18/11/2026 : **pas encore déployé**. Les comptes nécessaires doivent être créés par le propriétaire du projet.
+État au 19/11/2026 : **déployé** sur https://vite-et-gourmand-dsz4.onrender.com (Render, offre gratuite), avec PostgreSQL sur Neon et MongoDB sur Atlas. Envoi réel des e-mails non configuré (SMTP vide : mails écrits dans les journaux Render).
+
+Pièges rencontrés lors du déploiement :
+- Atlas n’autorisait que l’adresse IP de création du cluster : ajouter `0.0.0.0/0` dans *IP Access List*, sinon Render ne peut pas se connecter.
+- Dans `MONGODB_URI`, remplacer `<db_password>` **chevrons compris** (erreur « bad auth » sinon).
+- Render a ajouté un suffixe au nom (`-dsz4`) : mettre la vraie adresse dans `APP_URL`.
+- L’application ne se connecte à MongoDB qu’au démarrage : après une correction, redéployer.
 
 ## Hébergeurs choisis
 
