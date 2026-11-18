@@ -1,0 +1,15 @@
+<%- include('partials/tete') %>
+<h1>Créer un compte</h1>
+<%- include('partials/erreurs') %>
+<form class="formulaire" method="post" action="/inscription">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <%- include('partials/champs-profil', { profil: valeurs }) %>
+  <%- include('partials/champ-mot-de-passe') %>
+  <div class="champ champ-case">
+    <input type="checkbox" id="rgpd" name="rgpd" value="1" required>
+    <label for="rgpd">J'accepte que mes données soient utilisées pour gérer mon compte et mes commandes
+      (voir les <a href="/mentions-legales">mentions légales</a>).</label>
+  </div>
+  <button class="bouton" type="submit">Créer mon compte</button>
+</form>
+<%- include('partials/pied') %>

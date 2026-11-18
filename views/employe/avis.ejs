@@ -1,0 +1,19 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Avis clients</h1>
+<% if (!avis.length) { %><p>Aucun avis.</p><% } %>
+<ul class="liste-avis">
+  <% avis.forEach((a) => { %>
+    <li class="bloc">
+      <p><strong><%= a.note %>/5</strong> – <%= a.prenom %> <%= a.nom %> (commande <%= a.numero_commande %>)
+        – <span class="statut statut-avis-<%= a.statut %>"><%= { en_attente: 'En attente', valide: 'Validé', refuse: 'Refusé' }[a.statut] %></span></p>
+      <blockquote><p><%= a.description %></p></blockquote>
+      <form method="post" action="/employe/avis/<%= a.avis_id %>" class="en-ligne">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="bouton bouton-petit" name="statut" value="valide" type="submit">Valider</button>
+        <button class="bouton bouton-petit bouton-danger" name="statut" value="refuse" type="submit">Refuser</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+<%- include('../partials/pied') %>

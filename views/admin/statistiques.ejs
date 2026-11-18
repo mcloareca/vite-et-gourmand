@@ -1,0 +1,42 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Statistiques des commandes</h1>
+<p class="aide">Données lues dans la base MongoDB (collection commandes_stats). Les commandes annulées ne sont pas comptées.</p>
+<form class="filtres" method="get" action="/admin/statistiques" aria-label="Filtrer les statistiques">
+  <div class="champ">
+    <label for="menu">Menu</label>
+    <select id="menu" name="menu">
+      <option value="">Tous les menus</option>
+      <% menus.forEach((m) => { %><option value="<%= m.menu_id %>" <%= filtres.menu === m.menu_id ? 'selected' : '' %>><%= m.titre %></option><% }) %>
+    </select>
+  </div>
+  <div class="champ"><label for="debut">Du</label><input type="date" id="debut" name="debut" value="<%= filtres.debut %>"></div>
+  <div class="champ"><label for="fin">Au</label><input type="date" id="fin" name="fin" value="<%= filtres.fin %>"></div>
+  <div class="actions-filtres"><button class="bouton" type="submit">Filtrer</button> <a href="/admin/statistiques">Réinitialiser</a></div>
+</form>
+
+<% if (stats === null) { %>
+  <p class="alerte alerte-erreur">MongoDB n'est pas connecté : vérifiez la variable MONGODB_URI.</p>
+<% } else if (stats.length === 0) { %>
+  <p>Aucune commande sur cette période.</p>
+<% } else { %>
+  <div class="graphique">
+    <%# Les données sont passées au script dans un attribut data-* (pas de script en ligne, compatible avec la CSP) %>
+    <canvas id="graphique" data-stats="<%= JSON.stringify(stats) %>" role="img" aria-label="Graphique du nombre de commandes par menu. Les valeurs sont détaillées dans le tableau ci-dessous."></canvas>
+  </div>
+  <div class="tableau-defilant">
+    <table>
+      <caption>Commandes et chiffre d'affaires par menu</caption>
+      <thead><tr><th scope="col">Menu</th><th scope="col">Nombre de commandes</th><th scope="col">Chiffre d'affaires</th></tr></thead>
+      <tbody>
+        <% stats.forEach((s) => { %><tr><td><%= s.menu_titre %></td><td><%= s.nombre_commandes %></td><td><%= euros(s.chiffre_affaires) %></td></tr><% }) %>
+      </tbody>
+      <tfoot>
+        <tr class="total"><th scope="row">Total</th><td><%= stats.reduce((t, s) => t + s.nombre_commandes, 0) %></td><td><%= euros(stats.reduce((t, s) => t + s.chiffre_affaires, 0)) %></td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <script src="/vendor/chart.umd.min.js"></script>
+  <script src="/js/statistiques.js"></script>
+<% } %>
+<%- include('../partials/pied') %>

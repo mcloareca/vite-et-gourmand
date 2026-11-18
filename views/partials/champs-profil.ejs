@@ -1,0 +1,31 @@
+<%# Champs du profil, réutilisés par l'inscription et l'espace utilisateur %>
+<div class="grille-2">
+  <div class="champ">
+    <label for="prenom">Prénom</label>
+    <input id="prenom" name="prenom" required maxlength="50" autocomplete="given-name" value="<%= profil.prenom || '' %>">
+  </div>
+  <div class="champ">
+    <label for="nom">Nom</label>
+    <input id="nom" name="nom" required maxlength="50" autocomplete="family-name" value="<%= profil.nom || '' %>">
+  </div>
+  <div class="champ">
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" required autocomplete="email" value="<%= profil.email || '' %>">
+  </div>
+  <div class="champ">
+    <label for="telephone">Numéro de GSM</label>
+    <input type="tel" id="telephone" name="telephone" required autocomplete="tel" placeholder="06 12 34 56 78" value="<%= profil.telephone || '' %>">
+  </div>
+  <div class="champ">
+    <label for="adresse_postale">Adresse postale</label>
+    <input id="adresse_postale" name="adresse_postale" required autocomplete="street-address" value="<%= profil.adresse_postale || '' %>">
+  </div>
+  <div class="champ">
+    <label for="code_postal">Code postal</label>
+    <input id="code_postal" name="code_postal" required pattern="\d{5}" inputmode="numeric" autocomplete="postal-code" value="<%= profil.code_postal || '' %>">
+  </div>
+  <div class="champ">
+    <label for="ville">Ville</label>
+    <input id="ville" name="ville" required autocomplete="address-level2" value="<%= profil.ville || '' %>">
+  </div>
+</div>

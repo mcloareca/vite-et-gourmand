@@ -1,0 +1,24 @@
+  </main>
+  <footer class="pied">
+    <div class="conteneur pied-grille">
+      <section aria-labelledby="titre-horaires">
+        <h2 id="titre-horaires">Horaires</h2>
+        <ul class="horaires">
+          <% horaires.forEach((h) => { %>
+            <li><span><%= h.jour %></span> <span><%= h.heure_ouverture ? `${h.heure_ouverture} – ${h.heure_fermeture}` : 'Fermé' %></span></li>
+          <% }) %>
+        </ul>
+      </section>
+      <section aria-labelledby="titre-infos">
+        <h2 id="titre-infos">Vite &amp; Gourmand</h2>
+        <p>Traiteur à Bordeaux depuis 25 ans.</p>
+        <ul>
+          <li><a href="/mentions-legales">Mentions légales</a></li>
+          <li><a href="/cgv">Conditions générales de vente</a></li>
+          <li><a href="/contact">Nous contacter</a></li>
+        </ul>
+      </section>
+    </div>
+  </footer>
+</body>
+</html>

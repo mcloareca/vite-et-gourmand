@@ -1,0 +1,28 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Menus</h1>
+<p><a class="bouton" href="/employe/menus/nouveau">Ajouter un menu</a></p>
+<div class="tableau-defilant">
+  <table>
+    <caption class="visually-hidden">Liste des menus</caption>
+    <thead><tr><th scope="col">Titre</th><th scope="col">Thème</th><th scope="col">Prix (min. pers.)</th><th scope="col">Stock</th><th scope="col">Actions</th></tr></thead>
+    <tbody>
+      <% menus.forEach((m) => { %>
+        <tr>
+          <td><%= m.titre %></td>
+          <td><%= m.theme %></td>
+          <td><%= euros(m.prix_minimum) %> (<%= m.nombre_personne_minimum %> p.)</td>
+          <td><%= m.quantite_restante %></td>
+          <td>
+            <a href="/employe/menus/<%= m.menu_id %>/modifier">Modifier<span class="visually-hidden"> <%= m.titre %></span></a>
+            <form method="post" action="/employe/menus/<%= m.menu_id %>/supprimer" class="en-ligne">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="lien-bouton danger" type="submit">Supprimer<span class="visually-hidden"> <%= m.titre %></span></button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/pied') %>

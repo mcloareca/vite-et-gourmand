@@ -1,0 +1,89 @@
+<%- include('partials/tete') %>
+<h1><%= titre %></h1>
+<%- include('partials/erreurs') %>
+<form class="formulaire" id="form-commande" method="post"
+      action="<%= modification ? `/compte/commandes/${modification.commande_id}/modifier` : '/commande' %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <fieldset>
+    <legend>1. Vos informations</legend>
+    <p class="aide">Reprises de votre compte. Pour les changer, modifiez votre profil dans <a href="/compte">Mon espace</a>.</p>
+    <div class="grille-2">
+      <div class="champ"><label for="c-prenom">Prénom</label><input id="c-prenom" value="<%= profil.prenom %>" readonly></div>
+      <div class="champ"><label for="c-nom">Nom</label><input id="c-nom" value="<%= profil.nom %>" readonly></div>
+      <div class="champ"><label for="c-email">E-mail</label><input id="c-email" value="<%= profil.email %>" readonly></div>
+      <div class="champ"><label for="c-tel">GSM</label><input id="c-tel" value="<%= profil.telephone %>" readonly></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>2. La prestation</legend>
+    <div class="grille-2">
+      <div class="champ">
+        <label for="date_prestation">Date de la prestation</label>
+        <input type="date" id="date_prestation" name="date_prestation" required value="<%= valeurs.date_prestation || '' %>">
+      </div>
+      <div class="champ">
+        <label for="heure_livraison">Heure de livraison souhaitée</label>
+        <input type="time" id="heure_livraison" name="heure_livraison" required value="<%= valeurs.heure_livraison || '' %>">
+      </div>
+      <div class="champ">
+        <label for="adresse_livraison">Adresse de livraison</label>
+        <input id="adresse_livraison" name="adresse_livraison" required autocomplete="street-address" value="<%= valeurs.adresse_livraison || '' %>">
+      </div>
+      <div class="champ">
+        <label for="code_postal">Code postal</label>
+        <input id="code_postal" name="code_postal" required pattern="\d{5}" inputmode="numeric" value="<%= valeurs.code_postal || '' %>">
+      </div>
+      <div class="champ">
+        <label for="ville_livraison">Ville</label>
+        <input id="ville_livraison" name="ville_livraison" required value="<%= valeurs.ville_livraison || '' %>">
+      </div>
+    </div>
+    <p class="aide">Livraison offerte à Bordeaux. Ailleurs : 5 € + 0,59 € par km, distance calculée automatiquement depuis l'adresse.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>3. Le menu</legend>
+    <div class="champ">
+      <label for="menu_id">Menu choisi</label>
+      <% if (modification) { %>
+        <%# Le menu ne peut pas être modifié : il est affiché mais pas modifiable %>
+        <input type="hidden" name="menu_id" value="<%= menuChoisi.menu_id %>">
+        <input id="menu_id" value="<%= menuChoisi.titre %>" readonly data-min="<%= menuChoisi.nombre_personne_minimum %>">
+      <% } else { %>
+        <select id="menu_id" name="menu_id" required>
+          <% menus.forEach((m) => { %>
+            <option value="<%= m.menu_id %>" data-min="<%= m.nombre_personne_minimum %>" data-conditions="<%= m.conditions %>" <%= menuChoisi && m.menu_id === menuChoisi.menu_id ? 'selected' : '' %>><%= m.titre %></option>
+          <% }) %>
+        </select>
+      <% } %>
+    </div>
+    <%# Conditions toujours visibles (énoncé) ; mises à jour par commande.js si on change de menu %>
+    <div class="conditions"><strong>⚠ Conditions du menu :</strong> <span id="conditions-menu"><%= (menuChoisi && menuChoisi.conditions) || 'Aucune condition particulière.' %></span></div>
+    <div class="champ">
+      <label for="nombre_personne">Nombre de personnes</label>
+      <input type="number" id="nombre_personne" name="nombre_personne" required step="1"
+             min="<%= menuChoisi ? menuChoisi.nombre_personne_minimum : 1 %>" value="<%= valeurs.nombre_personne || '' %>" aria-describedby="aide-nb">
+      <small id="aide-nb">Minimum <span id="nb-min"><%= menuChoisi ? menuChoisi.nombre_personne_minimum : 1 %></span> personnes. 10 % de réduction à partir de 5 personnes de plus.</small>
+    </div>
+  </fieldset>
+
+  <section class="bloc recap-prix" aria-labelledby="titre-recap">
+    <h2 id="titre-recap">Détail du prix</h2>
+    <div id="detail-prix" aria-live="polite">
+      <p>Remplissez la date, l'adresse et le nombre de personnes pour voir le prix détaillé.</p>
+    </div>
+    <p class="aide">Le prix définitif est recalculé par nos serveurs à la validation.</p>
+  </section>
+
+  <% if (!modification) { %>
+    <div class="champ champ-case">
+      <input type="checkbox" id="cgv" name="cgv" value="1" required>
+      <label for="cgv">J'ai lu et j'accepte les <a href="/cgv">conditions générales de vente</a> et les conditions du menu.</label>
+    </div>
+  <% } %>
+  <button class="bouton" type="submit"><%= modification ? 'Enregistrer les modifications' : 'Valider la commande' %></button>
+</form>
+<script src="/js/commande.js"></script>
+<%- include('partials/pied') %>

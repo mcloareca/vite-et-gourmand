@@ -1,0 +1,42 @@
+<%- include('partials/tete') %>
+<section class="hero">
+  <h1>Vite &amp; Gourmand, traiteur à Bordeaux depuis 25 ans</h1>
+  <p>Noël, Pâques, anniversaires ou simples repas en famille : Julie et José cuisinent pour tous vos événements, et livrent chez vous.</p>
+  <a class="bouton" href="/menus">Découvrir nos menus</a>
+</section>
+
+<section aria-labelledby="titre-equipe">
+  <h2 id="titre-equipe">Une équipe de professionnels</h2>
+  <div class="grille-3">
+    <article class="bloc">
+      <h3>25 ans d'expérience</h3>
+      <p>Depuis un quart de siècle, nous préparons des repas de fête pour les Bordelais, avec le même souci du détail.</p>
+    </article>
+    <article class="bloc">
+      <h3>Des produits frais</h3>
+      <p>Nos menus évoluent avec les saisons et privilégient les producteurs de la région.</p>
+    </article>
+    <article class="bloc">
+      <h3>Livraison et matériel</h3>
+      <p>Nous livrons à l'heure choisie et pouvons prêter le matériel de service pour vos réceptions.</p>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="titre-avis">
+  <h2 id="titre-avis">L'avis de nos clients</h2>
+  <% if (avis.length === 0) { %>
+    <p>Aucun avis pour le moment.</p>
+  <% } else { %>
+    <ul class="grille-3">
+      <% avis.forEach((a) => { %>
+        <li class="bloc avis">
+          <p class="note" aria-label="Note : <%= a.note %> sur 5"><span aria-hidden="true"><%= '★'.repeat(a.note) + '☆'.repeat(5 - a.note) %></span></p>
+          <blockquote><p><%= a.description %></p></blockquote>
+          <p class="auteur"><%= a.prenom %>, <%= a.menu %></p>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+<%- include('partials/pied') %>

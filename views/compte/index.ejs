@@ -1,0 +1,39 @@
+<%- include('../partials/tete') %>
+<h1>Mon espace</h1>
+
+<section aria-labelledby="titre-commandes">
+  <h2 id="titre-commandes">Mes commandes</h2>
+  <% if (commandes.length === 0) { %>
+    <p>Vous n'avez pas encore passé de commande. <a href="/menus">Découvrir nos menus</a></p>
+  <% } else { %>
+    <div class="tableau-defilant">
+      <table>
+        <caption class="visually-hidden">Liste de mes commandes</caption>
+        <thead><tr><th scope="col">Numéro</th><th scope="col">Menu</th><th scope="col">Prestation</th><th scope="col">Total</th><th scope="col">Statut</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+        <tbody>
+          <% commandes.forEach((c) => { %>
+            <tr>
+              <td><%= c.numero_commande %></td>
+              <td><%= c.menu_titre %></td>
+              <td><%= dateFr(c.date_prestation) %></td>
+              <td><%= euros(c.prix_total) %></td>
+              <td><span class="statut statut-<%= c.statut %>"><%= STATUTS[c.statut] %></span></td>
+              <td><a href="/compte/commandes/<%= c.commande_id %>">Détail<span class="visually-hidden"> de la commande <%= c.numero_commande %></span></a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>
+
+<section aria-labelledby="titre-profil">
+  <h2 id="titre-profil">Mes informations personnelles</h2>
+  <%- include('../partials/erreurs') %>
+  <form class="formulaire" method="post" action="/compte/profil">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <%- include('../partials/champs-profil', { profil }) %>
+    <button class="bouton" type="submit">Enregistrer</button>
+  </form>
+</section>
+<%- include('../partials/pied') %>
