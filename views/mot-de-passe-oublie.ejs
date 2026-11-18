@@ -1,0 +1,12 @@
+<%- include('partials/tete') %>
+<h1>Mot de passe oublié</h1>
+<p>Indiquez l'e-mail de votre compte : nous vous enverrons un lien pour choisir un nouveau mot de passe.</p>
+<form class="formulaire" method="post" action="/mot-de-passe-oublie">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="champ">
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" required autocomplete="email">
+  </div>
+  <button class="bouton" type="submit">Recevoir le lien</button>
+</form>
+<%- include('partials/pied') %>

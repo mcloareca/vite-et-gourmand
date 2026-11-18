@@ -1,0 +1,43 @@
+<%- include('partials/tete') %>
+<h1>Nos menus</h1>
+<%# Le formulaire fonctionne sans JavaScript (rechargement de la page) ;
+    avec JavaScript, public/js/filtres.js met la liste à jour sans recharger. %>
+<form class="filtres" id="filtres" method="get" action="/menus" aria-label="Filtrer les menus">
+  <div class="champ">
+    <label for="prix_min">Prix minimum (€)</label>
+    <input type="number" id="prix_min" name="prix_min" min="0" step="1" value="<%= filtres.prix_min || '' %>">
+  </div>
+  <div class="champ">
+    <label for="prix_max">Prix maximum (€)</label>
+    <input type="number" id="prix_max" name="prix_max" min="0" step="1" value="<%= filtres.prix_max || '' %>">
+  </div>
+  <div class="champ">
+    <label for="theme">Thème</label>
+    <select id="theme" name="theme">
+      <option value="">Tous</option>
+      <% themes.forEach((t) => { %><option value="<%= t.theme_id %>" <%= Number(filtres.theme) === t.theme_id ? 'selected' : '' %>><%= t.libelle %></option><% }) %>
+    </select>
+  </div>
+  <div class="champ">
+    <label for="regime">Régime</label>
+    <select id="regime" name="regime">
+      <option value="">Tous</option>
+      <% regimes.forEach((r) => { %><option value="<%= r.regime_id %>" <%= Number(filtres.regime) === r.regime_id ? 'selected' : '' %>><%= r.libelle %></option><% }) %>
+    </select>
+  </div>
+  <div class="champ">
+    <label for="personnes">Nombre de convives</label>
+    <input type="number" id="personnes" name="personnes" min="1" step="1" value="<%= filtres.personnes || '' %>" aria-describedby="aide-personnes">
+    <small id="aide-personnes">Affiche les menus commandables pour ce nombre de personnes.</small>
+  </div>
+  <div class="actions-filtres">
+    <button class="bouton" type="submit">Filtrer</button>
+    <a href="/menus">Réinitialiser</a>
+  </div>
+</form>
+
+<div id="liste-menus" aria-live="polite">
+  <%- include('partials/liste-menus') %>
+</div>
+<script src="/js/filtres.js"></script>
+<%- include('partials/pied') %>

@@ -1,0 +1,24 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Horaires d'ouverture</h1>
+<form method="post" action="/employe/horaires">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="tableau-defilant">
+    <table>
+      <caption class="visually-hidden">Horaires par jour</caption>
+      <thead><tr><th scope="col">Jour</th><th scope="col">Ouverture</th><th scope="col">Fermeture</th><th scope="col">Fermé</th></tr></thead>
+      <tbody>
+        <% horaires.forEach((h) => { %>
+          <tr>
+            <th scope="row"><%= h.jour %></th>
+            <td><input type="time" name="ouverture_<%= h.horaire_id %>" value="<%= h.heure_ouverture || '' %>" aria-label="Ouverture le <%= h.jour %>"></td>
+            <td><input type="time" name="fermeture_<%= h.horaire_id %>" value="<%= h.heure_fermeture || '' %>" aria-label="Fermeture le <%= h.jour %>"></td>
+            <td><input type="checkbox" name="ferme_<%= h.horaire_id %>" value="1" <%= h.heure_ouverture ? '' : 'checked' %> aria-label="Fermé le <%= h.jour %>"></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <button class="bouton" type="submit">Enregistrer</button>
+</form>
+<%- include('../partials/pied') %>

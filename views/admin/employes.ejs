@@ -1,0 +1,45 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Comptes employés</h1>
+<section class="bloc" aria-labelledby="titre-nouvel-employe">
+  <h2 id="titre-nouvel-employe">Créer un compte employé</h2>
+  <p class="aide">L'employé reçoit un e-mail l'informant de la création de son compte, sans le mot de passe : communiquez-le-lui en direct.</p>
+  <form method="post" action="/admin/employes">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="grille-2">
+      <div class="champ"><label for="prenom">Prénom</label><input id="prenom" name="prenom" required maxlength="50"></div>
+      <div class="champ"><label for="nom">Nom</label><input id="nom" name="nom" required maxlength="50"></div>
+      <div class="champ"><label for="email">E-mail (identifiant)</label><input type="email" id="email" name="email" required autocomplete="off"></div>
+      <div class="champ">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required minlength="10" autocomplete="new-password"
+               pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{10,}" aria-describedby="aide-mdp">
+        <small id="aide-mdp">Au moins 10 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.</small>
+      </div>
+    </div>
+    <button class="bouton" type="submit">Créer le compte</button>
+  </form>
+</section>
+<div class="tableau-defilant">
+  <table>
+    <caption class="visually-hidden">Liste des employés</caption>
+    <thead><tr><th scope="col">Employé</th><th scope="col">E-mail</th><th scope="col">État</th><th scope="col">Action</th></tr></thead>
+    <tbody>
+      <% employes.forEach((e) => { %>
+        <tr>
+          <td><%= e.prenom %> <%= e.nom %></td>
+          <td><%= e.email %></td>
+          <td><%= e.actif ? 'Actif' : 'Désactivé' %></td>
+          <td>
+            <form method="post" action="/admin/employes/<%= e.utilisateur_id %>/actif" class="en-ligne">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="hidden" name="actif" value="<%= e.actif ? 'false' : 'true' %>">
+              <button class="lien-bouton <%= e.actif ? 'danger' : '' %>" type="submit"><%= e.actif ? 'Désactiver' : 'Réactiver' %><span class="visually-hidden"> <%= e.email %></span></button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/pied') %>

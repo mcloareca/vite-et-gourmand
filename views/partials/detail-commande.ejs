@@ -1,0 +1,25 @@
+<%# Détail d'une commande, partagé entre l'espace client et l'espace employé %>
+<dl class="detail">
+  <dt>Menu</dt><dd><%= commande.menu_titre %> – <%= commande.nombre_personne %> personnes</dd>
+  <dt>Prestation</dt><dd>Le <%= dateFr(commande.date_prestation) %> à <%= commande.heure_livraison %></dd>
+  <dt>Adresse</dt><dd><%= commande.adresse_livraison %>, <%= commande.code_postal %> <%= commande.ville_livraison %></dd>
+  <dt>Client</dt><dd><%= commande.prenom %> <%= commande.nom %> – <%= commande.email %> – <%= commande.telephone %></dd>
+  <dt>Statut</dt><dd><span class="statut statut-<%= commande.statut %>"><%= STATUTS[commande.statut] %></span></dd>
+  <% if (commande.motif_annulation) { %><dt>Motif d'annulation</dt><dd><%= commande.motif_annulation %><%= commande.mode_contact ? ` (client contacté par ${commande.mode_contact === 'gsm' ? 'téléphone' : 'e-mail'})` : '' %></dd><% } %>
+  <% if (commande.pret_materiel) { %><dt>Matériel prêté</dt><dd><%= commande.restitution_materiel ? 'Restitué' : 'À restituer sous 10 jours ouvrés' %></dd><% } %>
+</dl>
+<table class="tableau-prix">
+  <caption>Détail du prix</caption>
+  <tbody>
+    <tr><th scope="row">Menu (<%= commande.nombre_personne %> pers.)</th><td><%= euros(commande.prix_menu) %></td></tr>
+    <% if (Number(commande.reduction) > 0) { %><tr><th scope="row">Réduction 10 %</th><td>− <%= euros(commande.reduction) %></td></tr><% } %>
+    <tr><th scope="row">Livraison<%= commande.distance_km > 0 ? ` (${commande.distance_km} km)` : ' (Bordeaux)' %></th><td><%= euros(commande.prix_livraison) %></td></tr>
+    <tr class="total"><th scope="row">Total</th><td><%= euros(commande.prix_total) %></td></tr>
+  </tbody>
+</table>
+<% if (typeof suivi !== 'undefined' && suivi.length) { %>
+  <h2>Suivi de la commande</h2>
+  <ol class="suivi">
+    <% suivi.forEach((s) => { %><li><strong><%= STATUTS[s.statut] %></strong> – <time datetime="<%= new Date(s.date_modification).toISOString() %>"><%= dateHeureFr(s.date_modification) %></time></li><% }) %>
+  </ol>
+<% } %>

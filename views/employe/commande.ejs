@@ -1,0 +1,45 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<p><a href="/employe">← Toutes les commandes</a></p>
+<h1>Commande <%= commande.numero_commande %></h1>
+<%- include('../partials/detail-commande') %>
+
+<% if (!['annulee', 'terminee'].includes(commande.statut)) { %>
+  <div class="grille-2">
+    <section class="bloc" aria-labelledby="titre-statut">
+      <h2 id="titre-statut">Mettre à jour le statut</h2>
+      <form method="post" action="/employe/commandes/<%= commande.commande_id %>/statut">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="champ">
+          <label for="statut">Nouveau statut</label>
+          <select id="statut" name="statut" required>
+            <% ['accepte', 'en_preparation', 'en_livraison', 'livre', 'attente_materiel', 'terminee'].forEach((s) => { %>
+              <option value="<%= s %>"><%= STATUTS[s] %></option>
+            <% }) %>
+          </select>
+          <small>« En attente du retour de matériel » envoie au client le mail de restitution (600 € sous 10 jours ouvrés).
+            « Terminée » l'invite à donner son avis.</small>
+        </div>
+        <button class="bouton" type="submit">Mettre à jour</button>
+      </form>
+    </section>
+    <section class="bloc" aria-labelledby="titre-annuler">
+      <h2 id="titre-annuler">Annuler la commande</h2>
+      <p>Contactez d'abord le client, puis indiquez le mode de contact et le motif.</p>
+      <form method="post" action="/employe/commandes/<%= commande.commande_id %>/annuler">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <fieldset>
+          <legend>Client contacté par</legend>
+          <input type="radio" id="contact-gsm" name="mode_contact" value="gsm" required> <label for="contact-gsm">Téléphone (GSM)</label>
+          <input type="radio" id="contact-mail" name="mode_contact" value="mail"> <label for="contact-mail">E-mail</label>
+        </fieldset>
+        <div class="champ">
+          <label for="motif">Motif de l'annulation</label>
+          <textarea id="motif" name="motif" required maxlength="500" rows="3"></textarea>
+        </div>
+        <button class="bouton bouton-danger" type="submit">Annuler la commande</button>
+      </form>
+    </section>
+  </div>
+<% } %>
+<%- include('../partials/pied') %>

@@ -1,0 +1,17 @@
+<%# Liste des menus : utilisée par la page /menus ET renvoyée par /menus/filtrer pour le filtre dynamique %>
+<p class="resultats"><%= menus.length %> menu<%= menus.length > 1 ? 's' : '' %> trouvé<%= menus.length > 1 ? 's' : '' %></p>
+<ul class="grille-menus">
+  <% menus.forEach((m) => { %>
+    <li class="carte">
+      <% if (m.image) { %><img src="<%= m.image %>" alt="<%= m.image_alt %>" width="600" height="400" loading="lazy"><% } %>
+      <div class="carte-corps">
+        <h2><%= m.titre %></h2>
+        <p class="etiquettes"><span><%= m.theme %></span> <span><%= m.regime %></span></p>
+        <p><%= m.description %></p>
+        <p class="prix"><strong><%= euros(m.prix_minimum) %></strong> pour <%= m.nombre_personne_minimum %> personnes minimum</p>
+        <% if (m.quantite_restante <= 0) { %><p class="epuise">Épuisé</p><% } %>
+        <a class="bouton" href="/menus/<%= m.menu_id %>">Voir le détail<span class="visually-hidden"> du <%= m.titre %></span></a>
+      </div>
+    </li>
+  <% }) %>
+</ul>

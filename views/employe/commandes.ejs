@@ -1,0 +1,37 @@
+<%- include('../partials/tete') %>
+<%- include('../partials/nav-employe') %>
+<h1>Commandes</h1>
+<form class="filtres" method="get" action="/employe" aria-label="Filtrer les commandes">
+  <div class="champ">
+    <label for="statut">Statut</label>
+    <select id="statut" name="statut">
+      <option value="">Tous</option>
+      <% Object.entries(STATUTS).forEach(([cle, libelle]) => { %><option value="<%= cle %>" <%= filtres.statut === cle ? 'selected' : '' %>><%= libelle %></option><% }) %>
+    </select>
+  </div>
+  <div class="champ">
+    <label for="client">Client (nom ou e-mail)</label>
+    <input id="client" name="client" value="<%= filtres.client %>">
+  </div>
+  <div class="actions-filtres"><button class="bouton" type="submit">Filtrer</button> <a href="/employe">Réinitialiser</a></div>
+</form>
+<div class="tableau-defilant">
+  <table>
+    <caption><%= commandes.length %> commande(s)</caption>
+    <thead><tr><th scope="col">Numéro</th><th scope="col">Client</th><th scope="col">Menu</th><th scope="col">Prestation</th><th scope="col">Total</th><th scope="col">Statut</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+    <tbody>
+      <% commandes.forEach((c) => { %>
+        <tr>
+          <td><%= c.numero_commande %></td>
+          <td><%= c.prenom %> <%= c.nom %><br><small><%= c.email %></small></td>
+          <td><%= c.menu_titre %> (<%= c.nombre_personne %> p.)</td>
+          <td><%= dateFr(c.date_prestation) %> <%= c.heure_livraison %></td>
+          <td><%= euros(c.prix_total) %></td>
+          <td><span class="statut statut-<%= c.statut %>"><%= STATUTS[c.statut] %></span></td>
+          <td><a href="/employe/commandes/<%= c.commande_id %>">Gérer<span class="visually-hidden"> la commande <%= c.numero_commande %></span></a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/pied') %>
