@@ -1,0 +1,37 @@
+# Configuration du déploiement sur Render ("Blueprint").
+# Render lit ce fichier pour créer le service : pas besoin de tout régler à la main.
+services:
+  - type: web
+    name: vite-et-gourmand
+    runtime: node
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "24"
+      - key: SESSION_SECRET
+        generateValue: true # Render génère une valeur aléatoire
+      - key: DATABASE_URL
+        sync: false # valeur secrète saisie dans le tableau de bord Render
+      - key: MONGODB_URI
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: CONTACT_EMAIL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false
