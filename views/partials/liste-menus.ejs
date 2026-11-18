@@ -6,7 +6,7 @@
       <% if (m.image) { %><img src="<%= m.image %>" alt="<%= m.image_alt %>" width="600" height="400" loading="lazy"><% } %>
       <div class="carte-corps">
         <h2><%= m.titre %></h2>
-        <p class="etiquettes"><span><%= m.theme %></span> <span><%= m.regime %></span></p>
+        <p class="etiquettes"><span>Thème : <%= m.theme %></span> <span>Régime : <%= m.regime %></span></p>
         <p><%= m.description %></p>
         <p class="prix"><strong><%= euros(m.prix_minimum) %></strong> pour <%= m.nombre_personne_minimum %> personnes minimum</p>
         <% if (m.quantite_restante <= 0) { %><p class="epuise">Épuisé</p><% } %>

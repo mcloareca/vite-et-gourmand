@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Charte graphique – Vite & Gourmand</title>
+<link rel="stylesheet" href="document.css">
+</head>
+<body>
+<section class="couverture">
+  <p class="sur-titre">ECF – Titre professionnel Développeur Web et Web Mobile</p>
+  <h1>Charte graphique</h1>
+  <p class="logo-grand">Vite <span>&amp;</span> Gourmand</p>
+  <p>Traiteur à Bordeaux depuis 25 ans</p>
+  <p class="meta">Version 1 – novembre 2026</p>
+</section>
+
+<h2>1. Intentions</h2>
+<p>Vite &amp; Gourmand est un traiteur familial. L'identité visuelle doit évoquer la gastronomie bordelaise (le vin, le bois, la chaleur d'un repas de fête),
+inspirer confiance aux clients habitués et rester lisible pour tous les publics, y compris les personnes âgées et les personnes en situation de handicap (RGAA).</p>
+<ul>
+  <li><strong>Chaleureux</strong> : bordeaux et crème plutôt que noir et blanc.</li>
+  <li><strong>Lisible</strong> : grands titres, contrastes élevés, une seule colonne sur mobile.</li>
+  <li><strong>Sobre</strong> : peu de couleurs, peu d'effets, pour mettre en avant les menus.</li>
+</ul>
+
+<h2>2. Palette de couleurs</h2>
+<table class="palette">
+  <thead><tr><th>Couleur</th><th>Nom</th><th>Code</th><th>Usage</th></tr></thead>
+  <tbody>
+    <tr><td><span class="pastille" style="background:#8a3324"></span></td><td>Bordeaux</td><td>#8A3324</td><td>Couleur principale : en-tête, boutons, liens</td></tr>
+    <tr><td><span class="pastille" style="background:#6b2519"></span></td><td>Bordeaux foncé</td><td>#6B2519</td><td>Titres, survol des boutons</td></tr>
+    <tr><td><span class="pastille" style="background:#fffaf3"></span></td><td>Crème</td><td>#FFFAF3</td><td>Fond des pages</td></tr>
+    <tr><td><span class="pastille" style="background:#f3e9db"></span></td><td>Beige</td><td>#F3E9DB</td><td>Bandeaux, étiquettes, en-têtes de tableaux</td></tr>
+    <tr><td><span class="pastille" style="background:#2b2118"></span></td><td>Brun foncé</td><td>#2B2118</td><td>Texte principal, pied de page</td></tr>
+    <tr><td><span class="pastille" style="background:#5c5148"></span></td><td>Brun gris</td><td>#5C5148</td><td>Textes d'aide</td></tr>
+    <tr><td><span class="pastille" style="background:#c9a227"></span></td><td>Or</td><td>#C9A227</td><td>Décoratif uniquement : « &amp; » du logo, bordure des conditions, contour de focus</td></tr>
+    <tr><td><span class="pastille" style="background:#2f6b3a"></span></td><td>Vert</td><td>#2F6B3A</td><td>Messages de succès, statut « terminée »</td></tr>
+    <tr><td><span class="pastille" style="background:#a1261b"></span></td><td>Rouge</td><td>#A1261B</td><td>Erreurs, actions de suppression ou d'annulation</td></tr>
+  </tbody>
+</table>
+
+<h3>Contrastes (calculés avec la formule WCAG 2.1, reprise par le RGAA)</h3>
+<p>Seuil exigé : 4,5:1 pour le texte normal, 3:1 pour le texte de grande taille et les éléments graphiques.</p>
+<table>
+  <thead><tr><th>Association</th><th>Rapport</th><th>Résultat</th></tr></thead>
+  <tbody>
+    <tr><td>Texte brun foncé sur crème</td><td>15,16:1</td><td>Conforme</td></tr>
+    <tr><td>Texte pied de page (#F5EFE6) sur brun foncé</td><td>13,78:1</td><td>Conforme</td></tr>
+    <tr><td>Titres bordeaux foncé sur crème</td><td>10,62:1</td><td>Conforme</td></tr>
+    <tr><td>Texte blanc sur bordeaux (boutons, en-tête)</td><td>8,14:1</td><td>Conforme</td></tr>
+    <tr><td>Liens bordeaux sur crème</td><td>7,84:1</td><td>Conforme</td></tr>
+    <tr><td>Rouge d'erreur sur blanc</td><td>7,48:1</td><td>Conforme</td></tr>
+    <tr><td>Texte d'aide brun gris sur crème</td><td>7,42:1</td><td>Conforme</td></tr>
+    <tr><td>Vert de succès sur vert pâle (#E6F2E8)</td><td>5,55:1</td><td>Conforme</td></tr>
+    <tr><td>Étoiles des avis (#8A6500) sur blanc</td><td>5,33:1</td><td>Conforme</td></tr>
+    <tr><td>Or sur bordeaux (« &amp; » du logo, 24 px gras)</td><td>3,37:1</td><td>Conforme en grand texte uniquement : l'or n'est jamais utilisé pour du texte courant</td></tr>
+  </tbody>
+</table>
+
+<h2>3. Typographie</h2>
+<p>Deux familles de polices <strong>déjà installées</strong> sur les ordinateurs et téléphones : aucun téléchargement, affichage immédiat,
+et aucune donnée envoyée à un service de polices (RGPD).</p>
+<div class="specimen">
+  <p class="serif" style="font-size:28pt">Georgia – titres</p>
+  <p class="serif">Aa Bb Cc 0123 – Menu de Noël traditionnel</p>
+  <p>Utilisée pour le logo et les titres (h1, h2, h3). Police à empattements, élégante, qui évoque la carte d'un restaurant.</p>
+</div>
+<div class="specimen">
+  <p class="sans" style="font-size:20pt">Police système – texte</p>
+  <p class="sans">Aa Bb Cc 0123 – Livraison offerte à Bordeaux</p>
+  <p>Pile <code>system-ui, -apple-system, "Segoe UI", Roboto, sans-serif</code> : la police de chaque appareil (San Francisco sur Apple, Segoe UI sur Windows, Roboto sur Android).
+     Très lisible à l'écran, utilisée pour le texte, les formulaires et les boutons.</p>
+</div>
+<table>
+  <thead><tr><th>Élément</th><th>Police</th><th>Taille</th></tr></thead>
+  <tbody>
+    <tr><td>Titre de page (h1)</td><td>Georgia</td><td>27 à 38 px selon la largeur d'écran</td></tr>
+    <tr><td>Titre de section (h2)</td><td>Georgia</td><td>24 px</td></tr>
+    <tr><td>Texte courant</td><td>Système</td><td>16 px, interligne 1,6</td></tr>
+    <tr><td>Textes d'aide</td><td>Système</td><td>14 px</td></tr>
+  </tbody>
+</table>
+
+<h2>4. Composants</h2>
+<div class="composants">
+  <span class="bouton">Bouton principal</span>
+  <span class="bouton danger">Bouton d'annulation</span>
+  <span class="etiquette">Thème : Noël</span>
+  <span class="etiquette">Régime : Vegan</span>
+</div>
+<div class="conditions">⚠ <strong>Conditions du menu</strong> : encadré jaune à bordure or, utilisé pour que le client ne puisse pas manquer les conditions d'un menu.</div>
+<ul>
+  <li>Coins arrondis de 8 px sur les cartes, boutons et encadrés.</li>
+  <li>Focus clavier : contour or de 3 px sur tous les éléments interactifs.</li>
+  <li>Logo typographique : « Vite &amp; Gourmand » en Georgia gras, esperluette en or.</li>
+  <li>Mise en page : une colonne sur mobile ; grilles de 2 ou 3 colonnes à partir de 700 px de large.</li>
+</ul>
+
+<h2 class="saut">5. Wireframes (basse fidélité)</h2>
+<p>Les wireframes fixent l'organisation des trois écrans principaux (accueil, liste des menus, commande) avant la mise en forme.</p>
+<figure class="pleine"><img src="../maquettes/wireframe-bureau-1-accueil.png" alt=""><figcaption>Bureau – Accueil</figcaption></figure>
+<figure class="pleine saut"><img src="../maquettes/wireframe-bureau-2-menus.png" alt=""><figcaption>Bureau – Menus</figcaption></figure>
+<figure class="pleine saut"><img src="../maquettes/wireframe-bureau-3-commande.png" alt=""><figcaption>Bureau – Commande</figcaption></figure>
+<div class="maquettes-mobile saut">
+  <figure><img src="../maquettes/wireframe-mobile-1-accueil.png" alt=""><figcaption>Mobile – Accueil</figcaption></figure>
+  <figure><img src="../maquettes/wireframe-mobile-2-menus.png" alt=""><figcaption>Mobile – Menus</figcaption></figure>
+  <figure><img src="../maquettes/wireframe-mobile-3-commande.png" alt=""><figcaption>Mobile – Commande</figcaption></figure>
+</div>
+
+<h2 class="saut">6. Mockups (haute fidélité)</h2>
+<p>Captures de l'interface réalisée, avec les données de démonstration.</p>
+<figure class="pleine"><img src="../maquettes/mockup-bureau-1-accueil.png" alt=""><figcaption>Bureau – Accueil (1440 px)</figcaption></figure>
+<figure class="pleine saut"><img src="../maquettes/mockup-bureau-2-menus.png" alt=""><figcaption>Bureau – Liste des menus avec filtres (1440 px)</figcaption></figure>
+<figure class="pleine saut"><img src="../maquettes/mockup-bureau-3-commande.png" alt=""><figcaption>Bureau – Commande avec détail du prix (1440 px)</figcaption></figure>
+<div class="maquettes-mobile saut">
+  <figure><img src="../maquettes/mockup-mobile-1-accueil.png" alt=""><figcaption>Mobile – Accueil (390 px)</figcaption></figure>
+  <figure><img src="../maquettes/mockup-mobile-2-menus.png" alt=""><figcaption>Mobile – Menus (390 px)</figcaption></figure>
+  <figure><img src="../maquettes/mockup-mobile-3-commande.png" alt=""><figcaption>Mobile – Commande (390 px)</figcaption></figure>
+</div>
+</body>
+</html>

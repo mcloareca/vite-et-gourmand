@@ -94,6 +94,16 @@ Je lancerai alors l'installation de la base Neon et de MongoDB, puis les tests a
    Si elle diffère de celle saisie pour `APP_URL`, corrigez la variable dans **Environment** (le service redémarre).
 6. Envoyez-moi l'adresse du site : je lancerai les vérifications en production.
 
+## Étape 7 – Notion (outil de gestion de projet, lien exigé dans la copie)
+
+1. Allez sur https://www.notion.so et créez un compte gratuit.
+2. Dans la barre latérale : **Importer** (ou *Settings → Import*) → **CSV** → choisissez
+   `docs/livrables/gestion-projet-taches.csv` du dépôt. Notion crée une base de données avec les 32 tâches.
+3. En haut de la base : **+ Ajouter une vue** → **Tableau (Board)** → regrouper par **Statut**.
+   Vous obtenez les colonnes À faire / En cours / Terminé.
+4. Mettez à jour les cartes au fur et à mesure (déploiement, vérifications, copie).
+5. **Partager** → onglet **Publier** → **Publier sur le web**. Copiez le lien public : il va dans la copie à rendre.
+
 ## En cas de problème
 
 - `git push` refusé (*Authentication failed*) : vous avez saisi le mot de passe GitHub au lieu du jeton (étape 1.5).
