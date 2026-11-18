@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Gestion de projet – Vite & Gourmand</title>
+<link rel="stylesheet" href="document.css">
+</head>
+<body>
+<section class="couverture">
+  <p class="sur-titre">ECF – Titre professionnel Développeur Web et Web Mobile</p>
+  <h1>Gestion de projet</h1>
+  <p class="logo-grand">Vite <span>&amp;</span> Gourmand</p>
+  <p class="meta">Version 1 – novembre 2026</p>
+</section>
+
+<h2>1. Organisation</h2>
+<p>Projet réalisé seul, dans un délai court, avec une date de livraison imposée (19 novembre 2026, 23 h 59).
+J'ai choisi une méthode <strong>Kanban</strong> : simple à tenir seul, elle rend visible ce qui est fait, en cours et à faire,
+sans les cérémonies d'une méthode Scrum (sprints, réunions) qui n'ont pas de sens pour une personne.</p>
+<p><strong>Outil</strong> : tableau Kanban Notion, lien public : <!-- LIEN_GESTION_PROJET -->[à compléter]</p>
+<p>Colonnes : <strong>À faire</strong> → <strong>En cours</strong> → <strong>Terminé</strong>. Une carte = une fonctionnalité ou un livrable,
+avec une catégorie (Analyse, Conception, Front-end, Back-end, Sécurité, Tests, Documentation, Déploiement) et une priorité.</p>
+
+<h2>2. Priorisation (MoSCoW)</h2>
+<table>
+  <thead><tr><th>Priorité</th><th>Signification</th><th>Exemples</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Must</strong></td><td>Exigé par l'énoncé : sans cela, le projet n'est pas conforme</td><td>Commande, deux bases de données, sécurité, déploiement, livrables</td></tr>
+    <tr><td><strong>Should</strong></td><td>Important mais contournable temporairement</td><td>Envoi réel des e-mails (affichés dans les journaux en attendant)</td></tr>
+    <tr><td><strong>Could</strong></td><td>Amélioration si le temps le permet</td><td>Photos réelles, audit RGAA complet, modification d'une commande par un employé</td></tr>
+  </tbody>
+</table>
+<p>Règle : une carte <strong>Should</strong> ou <strong>Could</strong> ne passe « En cours » que si toutes les cartes Must de la même étape sont terminées.</p>
+
+<h2>3. Étapes</h2>
+<table>
+  <thead><tr><th>Étape</th><th>Contenu</th><th>Date</th></tr></thead>
+  <tbody>
+    <tr><td>1. Analyse</td><td>Lecture de l'énoncé, liste des exigences (matrice de conformité), choix techniques, vérification des hébergeurs</td><td>18/11/2026</td></tr>
+    <tr><td>2. Base de données</td><td>Modèle physique d'après le MCD, scripts SQL, données de démonstration</td><td>18/11/2026</td></tr>
+    <tr><td>3. Règles métier</td><td>Calcul du prix, distance, validation, avec tests unitaires écrits en même temps</td><td>18/11/2026</td></tr>
+    <tr><td>4. Application</td><td>Pages publiques, authentification, commande, espaces utilisateur, employé, administrateur</td><td>18/11/2026</td></tr>
+    <tr><td>5. Tests</td><td>Tests de bout en bout en local, vérification dans le navigateur (bureau et mobile)</td><td>18/11/2026</td></tr>
+    <tr><td>6. Livrables</td><td>Maquettes, charte graphique, documentation technique, manuel d'utilisation, gestion de projet</td><td>18/11/2026</td></tr>
+    <tr><td>7. Déploiement</td><td>GitHub, Neon, MongoDB Atlas, Render, vérification en production</td><td>[à compléter]</td></tr>
+    <tr><td>8. Rendu</td><td>Copie à rendre, liens, identifiants</td><td>[à compléter]</td></tr>
+  </tbody>
+</table>
+
+<h2>4. Suivi de la conformité</h2>
+<p>Le fichier <code>docs/MATRICE_CONFORMITE.md</code> du dépôt reprend chaque exigence de l'énoncé, l'endroit du code qui y répond
+et la façon dont elle a été vérifiée. Trois états sont distingués : <strong>testé</strong>, <strong>codé mais non testé</strong>, <strong>à faire</strong>.
+Le fichier <code>docs/SUIVI.md</code> note, à chaque étape, ce qui est terminé, ce qui reste à vérifier et ce qui reste à faire.</p>
+
+<h2>5. Gestion des versions (Git)</h2>
+<ul>
+  <li><code>main</code> : version stable, déployée automatiquement sur Render.</li>
+  <li><code>develop</code> : intégration.</li>
+  <li><code>feature/…</code> : une branche par fonctionnalité, créée depuis <code>develop</code>, fusionnée avec <code>--no-ff</code> après les tests (<code>npm test</code>).</li>
+  <li><code>develop</code> est fusionnée dans <code>main</code> une fois testée.</li>
+</ul>
+<p>Branches de fonctionnalité utilisées : <code>feature/base-de-donnees</code>, <code>feature/regles-metier</code>, <code>feature/application</code>,
+<code>feature/documentation</code>, <code>feature/deploiement</code>, <code>feature/livrables</code>.</p>
+
+<h2>6. Risques identifiés</h2>
+<table>
+  <thead><tr><th>Risque</th><th>Réponse</th></tr></thead>
+  <tbody>
+    <tr><td>Délai très court</td><td>Priorisation MoSCoW ; architecture simple ; tests automatiques pour ne pas régresser</td></tr>
+    <tr><td>Expiration d'une base gratuite avant l'évaluation</td><td>Neon et Atlas plutôt que le PostgreSQL gratuit de Render (expire après 30 jours)</td></tr>
+    <tr><td>Serveur en veille pendant la correction</td><td>Signalé dans le manuel ; ouvrir le site une minute avant la démonstration</td></tr>
+    <tr><td>Indisponibilité de l'API Adresse</td><td>Message clair au client ; la commande est refusée plutôt que mal facturée</td></tr>
+    <tr><td>MongoDB indisponible lors d'une commande</td><td>La commande est enregistrée dans PostgreSQL ; <code>npm run sync-stats</code> resynchronise sans doublon</td></tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframes Vite & Gourmand</title>
+<style>
+  /* Wireframes basse fidélité : niveaux de gris, blocs et libellés uniquement */
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 Arial, sans-serif; color: #333; background: #fff; }
+  .page { display: none; }
+  .page.visible { display: block; }
+  .b { border: 2px solid #999; background: #eee; border-radius: 4px; padding: 10px; margin: 10px 0; }
+  .b.fonce { background: #bbb; }
+  .b.img { background: repeating-linear-gradient(45deg, #ddd, #ddd 10px, #eee 10px, #eee 20px); min-height: 120px; display: flex; align-items: center; justify-content: center; }
+  .lbl { font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: .05em; }
+  .ligne { height: 10px; background: #ccc; margin: 6px 0; border-radius: 3px; }
+  .ligne.courte { width: 50%; }
+  .btn { display: inline-block; border: 2px solid #555; background: #999; color: #fff; padding: 6px 14px; border-radius: 4px; margin-top: 6px; }
+  .champ { border: 2px solid #999; background: #fff; height: 32px; border-radius: 4px; margin: 4px 0 10px; }
+  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px; background: #bbb; border-bottom: 2px solid #999; }
+  nav { display: flex; flex-wrap: wrap; gap: 10px; }
+  nav span { border: 1px dashed #666; padding: 2px 8px; }
+  main { padding: 0 16px; max-width: 1100px; margin: 0 auto; }
+  footer { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 16px; background: #bbb; margin-top: 20px; }
+  .g2, .g3, .cartes { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  .filtres { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 700px) {
+    .g2 { grid-template-columns: 1fr 1fr; }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+    .cartes { grid-template-columns: repeat(3, 1fr); }
+    .filtres { grid-template-columns: repeat(5, 1fr) auto; align-items: end; }
+    footer { grid-template-columns: 1fr 1fr; }
+    .formulaire { max-width: 720px; }
+  }
+  h1 { font-size: 22px; margin: 16px 0 8px; }
+  .titre { font-weight: bold; }
+</style>
+</head>
+<body>
+<header><span class="titre">LOGO Vite &amp; Gourmand</span>
+  <nav><span>Accueil</span><span>Nos menus</span><span>Contact</span><span>Connexion</span><span>Créer un compte</span></nav></header>
+
+<section class="page" id="accueil"><main>
+  <div class="b fonce" style="text-align:center;padding:30px"><div class="lbl">Bandeau d'accueil</div><h1>Titre : présentation de l'entreprise</h1><div class="ligne"></div><div class="ligne courte" style="margin:auto"></div><span class="btn">Découvrir nos menus</span></div>
+  <div class="lbl">Une équipe de professionnels</div>
+  <div class="g3"><div class="b"><b>Atout 1</b><div class="ligne"></div><div class="ligne courte"></div></div><div class="b"><b>Atout 2</b><div class="ligne"></div><div class="ligne courte"></div></div><div class="b"><b>Atout 3</b><div class="ligne"></div><div class="ligne courte"></div></div></div>
+  <div class="lbl">Avis clients validés</div>
+  <div class="g3"><div class="b">★★★★★<div class="ligne"></div><div class="ligne courte"></div><small>Prénom, menu</small></div><div class="b">★★★★☆<div class="ligne"></div><div class="ligne courte"></div><small>Prénom, menu</small></div><div class="b">★★★★★<div class="ligne"></div><div class="ligne courte"></div><small>Prénom, menu</small></div></div>
+</main></section>
+
+<section class="page" id="menus"><main>
+  <h1>Nos menus</h1>
+  <div class="b"><div class="lbl">Filtres (mise à jour sans rechargement)</div>
+    <div class="filtres"><div>Prix min<div class="champ"></div></div><div>Prix max<div class="champ"></div></div><div>Thème ▾<div class="champ"></div></div><div>Régime ▾<div class="champ"></div></div><div>Nb convives<div class="champ"></div></div><div><span class="btn">Filtrer</span></div></div></div>
+  <div class="cartes">
+    <div class="b"><div class="b img">Image</div><b>Titre du menu</b><div class="lbl">Thème · Régime</div><div class="ligne"></div><div class="ligne courte"></div><b>Prix</b> pour N pers. min.<br><span class="btn">Voir le détail</span></div>
+    <div class="b"><div class="b img">Image</div><b>Titre du menu</b><div class="lbl">Thème · Régime</div><div class="ligne"></div><div class="ligne courte"></div><b>Prix</b> pour N pers. min.<br><span class="btn">Voir le détail</span></div>
+    <div class="b"><div class="b img">Image</div><b>Titre du menu</b><div class="lbl">Thème · Régime</div><div class="ligne"></div><div class="ligne courte"></div><b>Prix</b> pour N pers. min.<br><span class="btn">Voir le détail</span></div>
+  </div>
+</main></section>
+
+<section class="page" id="commande"><main class="formulaire">
+  <h1>Commander un menu</h1>
+  <div class="b"><div class="lbl">1. Vos informations (pré-remplies, lecture seule)</div><div class="g2"><div>Prénom<div class="champ"></div></div><div>Nom<div class="champ"></div></div><div>E-mail<div class="champ"></div></div><div>GSM<div class="champ"></div></div></div></div>
+  <div class="b"><div class="lbl">2. La prestation</div><div class="g2"><div>Date<div class="champ"></div></div><div>Heure<div class="champ"></div></div><div>Adresse<div class="champ"></div></div><div>Code postal<div class="champ"></div></div><div>Ville<div class="champ"></div></div></div></div>
+  <div class="b"><div class="lbl">3. Le menu</div>Menu choisi ▾<div class="champ"></div><div class="b fonce">⚠ Conditions du menu (mises en évidence)</div>Nombre de personnes<div class="champ"></div></div>
+  <div class="b"><div class="lbl">Détail du prix (calculé par le serveur)</div>Menu ........ 000 €<br>Réduction ... −00 €<br>Livraison ... 00 €<br><b>Total ....... 000 €</b></div>
+  ☐ J'accepte les CGV<br><span class="btn">Valider la commande</span>
+</main></section>
+
+<footer><div class="b"><b>Horaires</b> lundi → dimanche<div class="ligne"></div><div class="ligne"></div><div class="ligne courte"></div></div><div class="b"><b>Liens</b> : mentions légales · CGV · contact</div></footer>
+<script>
+  // La page affichée est choisie dans l'adresse : wireframes.html?page=menus
+  document.getElementById(new URLSearchParams(location.search).get('page') || 'accueil').classList.add('visible');
+</script>
+</body>
+</html>

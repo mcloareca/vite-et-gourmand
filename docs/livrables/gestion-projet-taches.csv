@@ -1,0 +1,33 @@
+﻿Tâche,Catégorie,Priorité (MoSCoW),Statut,Date de réalisation
+Analyse de l'énoncé et des contraintes Studi,Analyse,Must,Terminé,18/11/2026
+"Choix de l'architecture (Express, EJS, PostgreSQL, MongoDB)",Analyse,Must,Terminé,18/11/2026
+Vérification des offres d'hébergement gratuites,Analyse,Must,Terminé,18/11/2026
+Schéma PostgreSQL d'après le MCD (creation.sql),Back-end,Must,Terminé,18/11/2026
+Données de démonstration (donnees.sql),Back-end,Must,Terminé,18/11/2026
+Calcul du prix + tests unitaires,Back-end,Must,Terminé,18/11/2026
+Distance de livraison depuis l'adresse (API Adresse),Back-end,Must,Terminé,18/11/2026
+"Pages publiques : accueil, menus, détail, contact, légal",Front-end,Must,Terminé,18/11/2026
+Filtres des menus sans rechargement,Front-end,Must,Terminé,18/11/2026
+"Inscription, connexion, mot de passe oublié",Back-end,Must,Terminé,18/11/2026
+Commande d'un menu avec détail du prix,Back-end,Must,Terminé,18/11/2026
+"Espace utilisateur : commandes, suivi, avis, profil",Back-end,Must,Terminé,18/11/2026
+"Espace employé : commandes, menus, plats, horaires, avis",Back-end,Must,Terminé,18/11/2026
+Espace administrateur : employés,Back-end,Must,Terminé,18/11/2026
+Statistiques MongoDB + graphique,Back-end,Must,En cours,18/11/2026
+"Sécurité : CSRF, sessions persistantes, rate limit, en-têtes",Sécurité,Must,Terminé,18/11/2026
+Responsive et accessibilité de base,Front-end,Must,Terminé,18/11/2026
+Tests de bout en bout en local,Tests,Must,Terminé,18/11/2026
+README et guide étudiant,Documentation,Must,Terminé,18/11/2026
+Wireframes et mockups (3 bureau + 3 mobile),Conception,Must,Terminé,18/11/2026
+Charte graphique PDF,Conception,Must,Terminé,18/11/2026
+Documentation technique PDF (diagrammes),Documentation,Must,Terminé,18/11/2026
+Manuel d'utilisation PDF,Documentation,Must,En cours,18/11/2026
+Création du dépôt GitHub public,Déploiement,Must,À faire,
+Base Neon + MongoDB Atlas,Déploiement,Must,À faire,
+Déploiement Render,Déploiement,Must,À faire,
+Vérification des fonctionnalités en production,Tests,Must,À faire,
+Envoi réel des e-mails (Brevo),Déploiement,Should,À faire,
+Copie à rendre,Documentation,Must,À faire,
+Audit d'accessibilité RGAA complet,Front-end,Could,À faire,
+Photos réelles des menus,Front-end,Could,À faire,
+Modification du contenu d'une commande par un employé,Back-end,Could,À faire,

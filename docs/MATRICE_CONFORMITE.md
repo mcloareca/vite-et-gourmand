@@ -77,9 +77,9 @@ Les tests « locaux » ont été faits le 18/11/2026 sur un PostgreSQL de test l
 | Branches main / develop / feature | ✅ en local |
 | README d'installation locale | ✅ `README.md` |
 | Fichiers SQL de création et de données | ✅ `database/` |
-| Manuel d'utilisation PDF avec identifiants | ❌ (identifiants déjà dans le README) |
-| Charte graphique PDF (palette, police, 3 maquettes bureau + 3 mobiles) | ❌ |
-| Documentation gestion de projet + lien outil (Trello/Notion/Jira) | ❌ |
-| Documentation technique (choix techniques, environnement, MCD, diagrammes de cas d'utilisation et de séquence, déploiement) | 🟡 base dans `GUIDE_ETUDIANT.md` et `DEPLOIEMENT.md` ; diagrammes à faire |
-| Copie à rendre (Word) | ❌ |
+| Manuel d'utilisation PDF avec identifiants | 🟡 `docs/livrables/Manuel_utilisation_Vite_et_Gourmand.pdf` (lien de production et capture des statistiques à ajouter) |
+| Charte graphique PDF (palette, police, 3 maquettes bureau + 3 mobiles) | ✅ `docs/livrables/Charte_graphique_Vite_et_Gourmand.pdf` (wireframes + mockups) |
+| Documentation gestion de projet + lien outil (Trello/Notion/Jira) | 🟡 PDF prêt ; tableau Notion à importer depuis le CSV et à publier |
+| Documentation technique (choix techniques, environnement, MCD, diagrammes de cas d'utilisation et de séquence, déploiement) | ✅ `docs/livrables/Documentation_technique_Vite_et_Gourmand.pdf` (à mettre à jour après le déploiement) |
+| Copie à rendre (Word) | 🟡 brouillon rempli ; liens, identité et veille à compléter |
 | Lien de déploiement + identifiants admin | ❌ |

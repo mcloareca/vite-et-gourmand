@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Documentation technique – Vite & Gourmand</title>
+<link rel="stylesheet" href="document.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+<section class="couverture">
+  <p class="sur-titre">ECF – Titre professionnel Développeur Web et Web Mobile</p>
+  <h1>Documentation technique</h1>
+  <p class="logo-grand">Vite <span>&amp;</span> Gourmand</p>
+  <p class="meta">Version 1 – novembre 2026</p>
+</section>
+
+<h2>1. Réflexions initiales</h2>
+<p>Le besoin : une application web permettant à un traiteur de présenter ses menus, de prendre des commandes en ligne
+et de les suivre jusqu'à la livraison, avec trois espaces (utilisateur, employé, administrateur).
+L'énoncé impose une base relationnelle et une base non relationnelle, le déploiement en ligne et le respect du RGAA et du RGPD.</p>
+<p>Principes retenus :</p>
+<ul>
+  <li><strong>Simplicité</strong> : une seule application, un seul langage (JavaScript) côté serveur et côté navigateur,
+      pas de framework front-end. Chaque fonctionnalité se lit dans un seul fichier de route.</li>
+  <li><strong>Le serveur fait foi</strong> : les pages sont générées côté serveur ; toutes les règles (prix, distance, statuts, droits) sont vérifiées par le serveur.</li>
+  <li><strong>Amélioration progressive</strong> : les formulaires fonctionnent sans JavaScript ; JavaScript ajoute le filtrage sans rechargement, le prix en direct et le graphique.</li>
+</ul>
+
+<h2>2. Choix des technologies</h2>
+<table>
+  <thead><tr><th>Besoin</th><th>Choix</th><th>Justification</th><th>Alternatives écartées</th></tr></thead>
+  <tbody>
+    <tr><td>Structure et style</td><td>HTML5 sémantique, CSS3 (Flexbox, Grid)</td><td>Standards du web, accessibles, aucun outil de compilation</td><td>Bootstrap : poids et classes inutiles pour quelques composants</td></tr>
+    <tr><td>Interactivité</td><td>JavaScript natif (fetch)</td><td>Trois besoins limités : filtres, prix, graphique</td><td>React/Vue : complexité injustifiée pour des pages essentiellement statiques</td></tr>
+    <tr><td>Serveur</td><td>Node.js 24 LTS + Express 5</td><td>Même langage que le front, framework minimal et très documenté ; Express 5 transmet les erreurs des fonctions asynchrones</td><td>PHP/Symfony : second langage à maîtriser</td></tr>
+    <tr><td>Pages dynamiques</td><td>EJS</td><td>HTML classique avec des balises <code>&lt;%= %&gt;</code> qui échappent automatiquement (XSS)</td><td>API JSON + front séparé : deux applications à déployer</td></tr>
+    <tr><td>Base relationnelle</td><td>PostgreSQL (bibliothèque <code>pg</code>, SQL écrit à la main)</td><td>Données fortement liées (menus, plats, commandes) ; contraintes, transactions ; le SQL reste visible</td><td>ORM (Sequelize, Prisma) : masque le SQL demandé par l'énoncé</td></tr>
+    <tr><td>Base NoSQL</td><td>MongoDB (driver officiel)</td><td>Imposée ; adaptée aux statistiques (documents indépendants agrégés par menu)</td><td>—</td></tr>
+    <tr><td>Sessions</td><td>express-session + connect-pg-simple</td><td>Sessions stockées dans PostgreSQL : persistantes en production</td><td>JWT : révocation plus difficile (désactivation d'un employé)</td></tr>
+    <tr><td>Mots de passe</td><td>bcryptjs</td><td>Hachage lent avec sel, standard ; version JavaScript pure, sans compilation à l'installation</td><td>SHA-256 seul : trop rapide, vulnérable</td></tr>
+    <tr><td>E-mails</td><td>Nodemailer + SMTP (Brevo)</td><td>Bibliothèque de référence ; SMTP standard</td><td>—</td></tr>
+    <tr><td>Graphique</td><td>Chart.js</td><td>Graphique en barres en quelques lignes ; servi par notre serveur (compatible avec la CSP)</td><td>Dessin manuel en canvas : long et peu lisible</td></tr>
+    <tr><td>Distance</td><td>API Adresse (data.gouv.fr)</td><td>Service public gratuit, sans clé ; normalise la ville (code INSEE)</td><td>Saisie de la distance par le client : falsifiable</td></tr>
+    <tr><td>Tests</td><td><code>node:test</code></td><td>Fourni par Node.js, aucune dépendance</td><td>Jest : dépendance supplémentaire</td></tr>
+    <tr><td>Hébergement</td><td>Render + Neon + MongoDB Atlas</td><td>Offres gratuites, déploiement depuis GitHub, HTTPS inclus</td><td>PostgreSQL gratuit de Render : expire après 30 jours</td></tr>
+  </tbody>
+</table>
+<p>Au total, 10 dépendances npm, chacune répondant à un besoin précis.</p>
+
+<h2>3. Environnement de travail</h2>
+<table>
+  <tbody>
+    <tr><th>Système</th><td>macOS</td></tr>
+    <tr><th>Exécution</th><td>Node.js 24.22.3 LTS et npm</td></tr>
+    <tr><th>Versionnement</th><td>Git 2.50, dépôt GitHub public, branches <code>main</code> / <code>develop</code> / <code>feature/*</code></td></tr>
+    <tr><th>Navigateur et outils</th><td>Google Chrome et ses outils de développement (inspection, console, réseau, affichage mobile)</td></tr>
+    <tr><th>Éditeur de code</th><td>[à compléter par l'étudiant]</td></tr>
+    <tr><th>Configuration</th><td>Variables d'environnement dans <code>.env</code> (ignoré par Git), modèle fourni dans <code>.env.example</code></td></tr>
+    <tr><th>Lancement</th><td><code>npm run dev</code> (redémarrage automatique avec <code>node --watch</code>), <code>npm test</code>, <code>npm run init-db</code></td></tr>
+  </tbody>
+</table>
+
+<h2 class="saut">4. Architecture</h2>
+<div class="diagramme"><pre class="mermaid">
+flowchart LR
+  N["Navigateur<br/>HTML, CSS, JS"] -- "HTTPS : pages, formulaires, fetch" --> R
+  subgraph R["Render (Express)"]
+    direction TB
+    RO["routes/"] --> SE["services/<br/>prix, livraison, commandes"]
+    RO --> V["views/ EJS"]
+  end
+  R -- "SQL paramétré (pg)" --> P[("Neon<br/>PostgreSQL")]
+  R -- "upsert, agrégation" --> M[("MongoDB Atlas<br/>commandes_stats")]
+  R -- "HTTPS" --> A["API Adresse<br/>data.gouv.fr"]
+  R -- "SMTP" --> B["Brevo<br/>e-mails"]
+</pre></div>
+<p>Organisation du code : <code>app.js</code> (point d'entrée), <code>routes/</code> (une route par URL), <code>services/</code> (règles métier réutilisées),
+<code>config/</code> (connexions), <code>middlewares/</code> (sécurité), <code>views/</code> (modèles EJS), <code>public/</code> (CSS, JS, images).</p>
+
+<h2>5. Modèle de données</h2>
+<p>Modèle physique PostgreSQL, issu du MCD de l'annexe 1. Ajouts : tables d'association <code>menu_plat</code> et <code>plat_allergene</code>
+(relations n,n), <code>image_menu</code> (galerie), <code>suivi_commande</code> (historique horodaté des statuts). La table technique <code>session</code> n'est pas représentée.</p>
+<div class="diagramme"><pre class="mermaid">
+erDiagram
+  role ||--o{ utilisateur : "possède"
+  utilisateur ||--o{ commande : "passe"
+  utilisateur ||--o{ avis : "publie"
+  commande ||--o| avis : "reçoit"
+  commande ||--|{ suivi_commande : "historique"
+  menu ||--o{ commande : "est commandé"
+  theme ||--o{ menu : "classe"
+  regime ||--o{ menu : "adapte"
+  menu ||--o{ image_menu : "illustre"
+  menu ||--o{ menu_plat : ""
+  plat ||--o{ menu_plat : ""
+  plat ||--o{ plat_allergene : ""
+  allergene ||--o{ plat_allergene : ""
+  role { int role_id PK
+    string libelle }
+  utilisateur { int utilisateur_id PK
+    string email UK
+    string password "hash bcrypt"
+    string nom
+    string prenom
+    string telephone
+    string adresse_postale
+    string ville
+    int role_id FK
+    bool actif }
+  menu { int menu_id PK
+    string titre
+    text description
+    int theme_id FK
+    int regime_id FK
+    int nombre_personne_minimum
+    decimal prix_minimum
+    text conditions
+    int quantite_restante }
+  plat { int plat_id PK
+    string titre_plat
+    string type "entree, plat, dessert" }
+  allergene { int allergene_id PK
+    string libelle }
+  theme { int theme_id PK
+    string libelle }
+  regime { int regime_id PK
+    string libelle }
+  image_menu { int image_id PK
+    int menu_id FK
+    string chemin }
+  menu_plat { int menu_id PK
+    int plat_id PK }
+  plat_allergene { int plat_id PK
+    int allergene_id PK }
+  commande { int commande_id PK
+    string numero_commande UK
+    int utilisateur_id FK
+    int menu_id FK
+    date date_prestation
+    string heure_livraison
+    string ville_livraison
+    int distance_km
+    int nombre_personne
+    decimal prix_total
+    string statut
+    bool pret_materiel
+    bool restitution_materiel }
+  suivi_commande { int suivi_id PK
+    int commande_id FK
+    string statut
+    timestamp date_modification }
+  avis { int avis_id PK
+    int commande_id FK
+    int note "1 a 5"
+    string description
+    string statut }
+  horaire { int horaire_id PK
+    string jour
+    string heure_ouverture
+    string heure_fermeture }
+</pre></div>
+<p><strong>MongoDB</strong> – collection <code>commandes_stats</code>, un document par commande (index unique sur <code>commande_id</code>) :
+<code>{ commande_id, menu_id, menu_titre, prix_total, statut, date_commande }</code>.</p>
+
+<h2 class="saut">6. Diagramme de cas d'utilisation</h2>
+<p>Les flèches en pointillés « hérite » signifient que l'utilisateur peut tout ce que peut le visiteur,
+et que l'administrateur peut tout ce que peut l'employé.</p>
+<div class="diagramme"><pre class="mermaid">
+flowchart LR
+  V(["👤 Visiteur"])
+  U(["👤 Utilisateur"])
+  E(["👤 Employé"])
+  A(["👤 Administrateur"])
+  U -. hérite .-> V
+  A -. hérite .-> E
+  V --- v1(["Consulter et filtrer les menus"])
+  V --- v2(["Voir le détail d'un menu"])
+  V --- v3(["Créer un compte"])
+  V --- v4(["Se connecter / mot de passe oublié"])
+  V --- v5(["Contacter l'entreprise"])
+  U --- u1(["Commander un menu"])
+  U --- u2(["Modifier / annuler une commande en attente"])
+  U --- u3(["Suivre ses commandes"])
+  U --- u4(["Donner un avis"])
+  U --- u5(["Modifier ses informations"])
+  E --- e1(["Changer le statut d'une commande"])
+  E --- e2(["Annuler une commande avec motif"])
+  E --- e3(["Filtrer les commandes"])
+  E --- e4(["Gérer menus, plats, horaires"])
+  E --- e5(["Valider / refuser les avis"])
+  A --- a1(["Créer / désactiver un employé"])
+  A --- a2(["Consulter les statistiques MongoDB"])
+</pre></div>
+
+<h2 class="saut">7. Diagramme de séquence : commander un menu</h2>
+<div class="diagramme"><pre class="mermaid">
+sequenceDiagram
+  actor C as Client
+  participant N as Navigateur
+  participant S as Serveur Express
+  participant A as API Adresse
+  participant P as PostgreSQL
+  participant M as MongoDB
+  participant B as SMTP
+  C->>N: Clique « Commander ce menu »
+  N->>S: GET /commande?menu=2
+  S->>S: exigerConnexion (sinon redirection /connexion)
+  S->>P: SELECT menus et profil du client
+  S-->>N: Formulaire pré-rempli
+  C->>N: Saisit date, adresse, nombre de personnes
+  N->>S: POST /commande/estimation (JSON + jeton CSRF)
+  S->>A: Géolocalisation de l'adresse
+  A-->>S: Ville (code INSEE) et coordonnées
+  S->>S: Distance (Haversine) puis calculerPrix()
+  S-->>N: Détail du prix
+  C->>N: Accepte les CGV, valide
+  N->>S: POST /commande (formulaire + jeton CSRF)
+  S->>S: Validation, géolocalisation, recalcul du prix
+  S->>P: BEGIN, SELECT stock FOR UPDATE
+  S->>P: UPDATE stock, INSERT commande et suivi, COMMIT
+  S->>M: updateOne(commande_id, upsert)
+  S->>B: Mail de confirmation
+  S-->>N: Redirection vers le détail de la commande
+</pre></div>
+
+<h2 class="saut">8. Diagramme de séquence : connexion</h2>
+<div class="diagramme"><pre class="mermaid">
+sequenceDiagram
+  actor U as Utilisateur
+  participant S as Serveur Express
+  participant P as PostgreSQL
+  U->>S: POST /connexion (e-mail, mot de passe, jeton CSRF)
+  S->>S: Limite : 10 échecs / 15 min / IP
+  S->>P: SELECT utilisateur WHERE email = $1
+  P-->>S: Compte (hash, rôle, actif)
+  S->>S: bcrypt.compare(mot de passe, hash)
+  alt Incorrect ou compte désactivé
+    S-->>U: 401 « E-mail ou mot de passe incorrect »
+  else Correct
+    S->>S: session.regenerate() puis rôle en session
+    S->>P: Enregistre la session (table session)
+    S-->>U: Cookie httpOnly + redirection vers son espace
+  end
+</pre></div>
+
+<h2 class="saut">9. Sécurité</h2>
+<table>
+  <thead><tr><th>Risque</th><th>Mesure</th></tr></thead>
+  <tbody>
+    <tr><td>Injection SQL</td><td>Requêtes paramétrées (<code>$1, $2</code>) dans toutes les requêtes</td></tr>
+    <tr><td>XSS</td><td>Échappement EJS <code>&lt;%= %&gt;</code>, <code>textContent</code> en JavaScript, en-tête Content-Security-Policy (scripts du site uniquement)</td></tr>
+    <tr><td>CSRF</td><td>Jeton aléatoire par session vérifié sur chaque POST ; cookie <code>SameSite=Lax</code></td></tr>
+    <tr><td>Mots de passe</td><td>Règle de complexité vérifiée côté serveur, hachage bcrypt, jeton de réinitialisation haché (SHA-256), valable 1 h, à usage unique</td></tr>
+    <tr><td>Force brute</td><td>express-rate-limit sur connexion, inscription, réinitialisation et contact</td></tr>
+    <tr><td>Sessions</td><td>Stockées en base, cookie <code>httpOnly</code> et <code>Secure</code> en production, régénérées à la connexion, expiration 2 h, supprimées à la désactivation d'un employé</td></tr>
+    <tr><td>Contrôle d'accès</td><td>Middlewares <code>exigerConnexion</code> et <code>exigerRole</code> ; filtre <code>utilisateur_id</code> sur les commandes d'un client ; rôle employé imposé côté serveur à la création ; aucun moyen de créer un administrateur</td></tr>
+    <tr><td>Falsification de données</td><td>Validation serveur de chaque champ ; prix, distance et ville recalculés par le serveur ; images limitées aux fichiers existants</td></tr>
+    <tr><td>Clickjacking, détection de type</td><td><code>X-Frame-Options: DENY</code>, <code>frame-ancestors 'none'</code>, <code>X-Content-Type-Options: nosniff</code></td></tr>
+    <tr><td>Fuite d'informations</td><td>Messages d'erreur génériques ; mêmes réponses pour un e-mail existant ou non ; secrets en variables d'environnement</td></tr>
+  </tbody>
+</table>
+
+<h2>10. Tests</h2>
+<ul>
+  <li><strong>Tests unitaires automatiques</strong> (<code>npm test</code>, 14 tests) : calcul du prix (minimum, seuil de réduction, livraison, arrondis), règles de mot de passe, e-mail, téléphone, distance.</li>
+  <li><strong>Tests de bout en bout</strong> (script de vérification HTTP, 65 vérifications, exécuté en local le 18/11/2026) : parcours visiteur, inscription, commande, espaces utilisateur, employé et administrateur, CSRF, contrôles d'accès.</li>
+  <li><strong>Vérifications manuelles</strong> dans Chrome : filtrage sans rechargement, prix en direct, affichage mobile (390 px), console sans erreur.</li>
+</ul>
+
+<h2>11. Déploiement</h2>
+<p>Étapes détaillées dans le dépôt : <code>docs/GUIDE_COMPTES.md</code> et <code>docs/DEPLOIEMENT.md</code>.</p>
+<ol>
+  <li>Le code est poussé sur GitHub (branche <code>main</code>).</li>
+  <li>La base PostgreSQL est créée sur Neon (Francfort) ; <code>npm run init-db</code> exécute <code>creation.sql</code> puis <code>donnees.sql</code>.</li>
+  <li>Le cluster MongoDB Atlas (Francfort) est créé ; un utilisateur dédié et l'accès réseau sont configurés ; <code>init-db</code> y copie les commandes.</li>
+  <li>Render crée le service à partir du fichier <code>render.yaml</code> (Blueprint) : <code>npm install</code> puis <code>npm start</code>, Node.js 24, offre gratuite.</li>
+  <li>Les secrets (<code>DATABASE_URL</code>, <code>MONGODB_URI</code>, SMTP) sont saisis dans Render ; <code>SESSION_SECRET</code> est généré par Render.</li>
+  <li>Chaque <code>git push</code> sur <code>main</code> redéploie automatiquement.</li>
+</ol>
+<p class="note"><strong>Limites de l'hébergement gratuit</strong> : mise en veille du serveur Render après 15 minutes sans visite (premier chargement d'environ une minute) ;
+1 Go pour PostgreSQL (Neon) ; 512 Mo pour MongoDB (Atlas).</p>
+
+<h2>12. Limites connues</h2>
+<ul>
+  <li>Distance de livraison calculée à vol d'oiseau, plus courte que par la route.</li>
+  <li>Les employés ne modifient pas le contenu d'une commande (seulement son statut ou son annulation motivée).</li>
+  <li>Pas de suppression de compte en libre-service : sur demande via le formulaire de contact.</li>
+  <li>Images de démonstration : illustrations simples, à remplacer par de vraies photographies.</li>
+</ul>
+</body>
+<script>
+  mermaid.initialize({ startOnLoad: false, theme: 'neutral', flowchart: { htmlLabels: true }, er: { layoutDirection: 'TB' } });
+  window.rendu = mermaid.run();
+</script>
+</html>
