@@ -58,3 +58,25 @@ Chaque étape indique ce qui est **terminé et testé**, ce qui est **codé mais
 **Reste à faire** :
 - Pousser le dépôt sur GitHub, déployer sur Render, vérifier en production
 - Envoi réel des e-mails (SMTP Brevo) : non testé
+
+## Étape 4 – 18–19/11/2026 : mise en production
+
+**Terminé et vérifié en production** (https://vite-et-gourmand-dsz4.onrender.com) :
+- Dépôt public GitHub : https://github.com/mcloareca/vite-et-gourmand (branches `main` et `develop`)
+- Service Render (offre gratuite, Blueprint `render.yaml`), connecté à Neon et à MongoDB Atlas
+- Pages publiques, en-têtes de sécurité (CSP, X-Frame-Options), cookie de session `Secure` + `HttpOnly`
+- Tests de bout en bout rejoués sur la production : tout passe (la requête malveillante de test est bloquée
+  par le pare-feu Cloudflare de Render avant d'atteindre l'application)
+- Statistiques : les documents MongoDB écrits par le serveur Render correspondent aux commandes PostgreSQL
+- Données de démonstration réinitialisées après les tests ; capture de la page Statistiques en production
+
+**Problèmes rencontrés et résolus** : IP Access List Atlas limitée à l'adresse de création (ajout de `0.0.0.0/0`) ;
+mot de passe Atlas laissé entre chevrons ; suffixe `-dsz4` ajouté par Render (APP_URL corrigée).
+
+**Limites restantes** :
+- Envoi réel des e-mails non configuré ni testé (mails écrits dans les journaux Render)
+- Réveil du serveur gratuit : environ 50 secondes après 15 minutes sans visite
+- Réinitialisation du mot de passe : vérifiée en local seulement (le lien n'est lisible que dans les journaux tant que le SMTP n'est pas configuré)
+
+**Reste à faire par l'étudiant** : nom, prénom, date de naissance, éditeur de code et veille sécurité dans la copie ;
+tableau Notion public (import de `gestion-projet-taches.csv`) et son lien.

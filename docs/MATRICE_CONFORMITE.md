@@ -8,6 +8,7 @@ Légende :
 
 Les tests « locaux » ont été faits le 18/11/2026 sur un PostgreSQL de test local, **sans MongoDB ni SMTP réels**.
 Le 18/11/2026, les mêmes tests de bout en bout (65 vérifications) ont été rejoués en local **avec les vraies bases Neon (PostgreSQL) et MongoDB Atlas** : tous passent. Le SMTP réel n'est toujours pas testé.
+Le 19/11/2026, les tests de bout en bout (56 vérifications HTTP ; la réinitialisation du mot de passe, qui lit le lien dans les journaux, n'est vérifiable qu'en local) ont été rejoués **sur le site en production** : tous passent, sauf la requête volontairement malveillante `theme=1 OR 1=1`, bloquée en amont par le pare-feu Cloudflare de Render (403, avant même l'application). Statistiques MongoDB écrites par le serveur Render = commandes PostgreSQL. Données de démonstration réinitialisées ensuite.
 
 ## Fonctionnalités
 
@@ -59,7 +60,7 @@ Le 18/11/2026, les mêmes tests de bout en bout (65 vérifications) ont été re
 | RGPD | 🟡 | mentions légales, consentement à l'inscription, cookie technique uniquement | pas de suppression de compte en libre-service (sur demande via contact) |
 | Accessibilité RGAA | 🟡 | labels, lien d'évitement, focus visible, `aria-live`, tableaux avec `caption`/`scope` | audit complet (contrastes, lecteur d'écran) à faire |
 | Responsive | ✅ | `public/css/style.css` | navigateur 375 px : pas de défilement horizontal |
-| Application déployée | ❌ | — | bases Neon et Atlas créées et initialisées ; reste GitHub + Render |
+| Application déployée | ✅ | `render.yaml` | https://vite-et-gourmand-dsz4.onrender.com — tests de bout en bout rejoués en production le 19/11/2026 (Neon + Atlas) |
 
 ## Écarts assumés avec le MCD de l'annexe
 
