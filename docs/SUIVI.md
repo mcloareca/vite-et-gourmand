@@ -79,7 +79,7 @@ mot de passe Atlas laissé entre chevrons ; suffixe `-dsz4` ajouté par Render (
 - Réinitialisation du mot de passe : vérifiée en local seulement (le lien n'est lisible que dans les journaux tant que le SMTP n'est pas configuré)
 
 **Reste à faire par l'étudiant** : nom, prénom, date de naissance, éditeur de code et veille sécurité dans la copie ;
-tableau Notion public (import de `gestion-projet-taches.csv`) et son lien.
+~~tableau Notion public et son lien~~ (fait le 19/11/2026, voir étape 6).
 
 ## Étape 5 – 19/11/2026 : tests de bout en bout dans le dépôt
 
@@ -89,3 +89,8 @@ tableau Notion public (import de `gestion-projet-taches.csv`) et son lien.
   de démonstration manquants, port déjà occupé ; seules les variables de `.env.test` sont transmises
 - Vérifié : 64/64 sur une base PostgreSQL locale temporaire, deux fois de suite ; base de production inchangée
 - Non vérifié : le lancement sur une branche Neon de test (à créer par l'étudiant, voir README)
+
+## Étape 6 – 19/11/2026 : lien Notion
+
+- Tableau Kanban public : https://tan-spy-72f.notion.site/41d9578884e98030a108d6349b30cea1?v=41d9578884e98082a505000c4754a05d
+- Lien ajouté dans la gestion de projet (PDF), la copie à rendre, la matrice de conformité et le README
