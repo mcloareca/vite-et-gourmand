@@ -67,9 +67,51 @@ Ouvrir http://localhost:3000. (`npm run dev` redémarre automatiquement à chaqu
 
 ### 6. Lancer les tests
 
+**Tests unitaires** (calcul du prix, règles de validation) : rapides, sans base de données.
+
 ```bash
 npm test
 ```
+
+**Tests de bout en bout** (`tests/e2e.js`) : le script simule de vrais visiteurs, clients, employés et
+administrateurs qui naviguent sur le site, et vérifie 64 comportements :
+- filtres des menus, contact ;
+- inscription, connexion, protection CSRF ;
+- commande et prix calculé par le serveur, stock, modification et annulation ;
+- suivi des statuts, avis ;
+- contrôles d'accès entre les rôles ;
+- gestion des menus, plats et horaires, comptes employés ;
+- mot de passe oublié.
+
+Ces tests **effacent et remplissent la base** qu'on leur donne : ils ont donc leur propre configuration, `.env.test`,
+qui doit pointer vers une **base de test**, jamais vers la base de production de `.env`.
+
+1. Créez une base PostgreSQL de test, par exemple une branche dans Neon : *Branches* → *Create branch*,
+   nommée `test`, puis *Connect* pour copier sa chaîne de connexion.
+2. Copiez le modèle de configuration : `cp .env.test.example .env.test` (fichier ignoré par Git).
+3. Dans `.env.test`, remplissez :
+   - `DATABASE_URL` avec la base de test ;
+   - les mots de passe des trois comptes de démonstration (tableau ci-dessous).
+
+   Laissez `MONGODB_URI` vide.
+4. Lancez les tests :
+
+```bash
+npm run test:e2e
+```
+
+Le script remet la base de test dans l'état des données de démonstration, démarre l'application sur le port 3001,
+lance les vérifications, puis arrête l'application. Chaque ligne affiche ✔ ou ✖.
+
+**Garde-fous** : le script refuse de démarrer si :
+- `.env.test` utilise la même base PostgreSQL ou le même MongoDB que `.env` ;
+- `NODE_ENV` vaut `production` ;
+- le port 3001 est déjà occupé.
+
+Il ne vise jamais le site en ligne. Il n'utilise que les variables de `.env.test`, pas celles du terminal.
+Les mots de passe des comptes créés pendant le test sont tirés au hasard.
+
+Le calcul de distance appelle l'API Adresse de l'État : une connexion Internet est nécessaire.
 
 ## Comptes de démonstration
 

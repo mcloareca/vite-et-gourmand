@@ -80,3 +80,12 @@ mot de passe Atlas laissé entre chevrons ; suffixe `-dsz4` ajouté par Render (
 
 **Reste à faire par l'étudiant** : nom, prénom, date de naissance, éditeur de code et veille sécurité dans la copie ;
 tableau Notion public (import de `gestion-projet-taches.csv`) et son lien.
+
+## Étape 5 – 19/11/2026 : tests de bout en bout dans le dépôt
+
+- `tests/e2e.js` + commande `npm run test:e2e` : 64 vérifications HTTP, explications dans le README
+- Configuration séparée `.env.test` (ignorée par Git, modèle `.env.test.example`) ; aucun mot de passe dans le code des tests
+- Garde-fous testés : refus si `.env.test` absent, même base PostgreSQL ou même MongoDB que `.env`, mots de passe
+  de démonstration manquants, port déjà occupé ; seules les variables de `.env.test` sont transmises
+- Vérifié : 64/64 sur une base PostgreSQL locale temporaire, deux fois de suite ; base de production inchangée
+- Non vérifié : le lancement sur une branche Neon de test (à créer par l'étudiant, voir README)

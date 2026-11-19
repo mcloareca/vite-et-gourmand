@@ -4,7 +4,7 @@ const v = require('../services/validation');
 const { distanceVolOiseau, CUISINE } = require('../services/livraison');
 
 test('mot de passe : les règles de l\'énoncé sont appliquées', () => {
-  assert.ok(v.estMotDePasseFort('Client#Test2026'));
+  assert.ok(v.estMotDePasseFort('Exemple#Valide1'), 'mot de passe conforme');
   assert.ok(!v.estMotDePasseFort('Court#1A'), 'moins de 10 caractères');
   assert.ok(!v.estMotDePasseFort('sansmajuscule#1'), 'pas de majuscule');
   assert.ok(!v.estMotDePasseFort('SANSMINUSCULE#1'), 'pas de minuscule');
