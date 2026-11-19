@@ -69,7 +69,7 @@ Je lancerai alors l'installation de la base Neon et de MongoDB, puis les tests a
 
    ```
    SMTP_HOST=smtp-relay.brevo.com
-   SMTP_PORT=587
+   SMTP_PORT=2525
    SMTP_USER=le login affiché par Brevo
    SMTP_PASS=la clé SMTP
    MAIL_FROM="Vite & Gourmand <l-adresse-validee-a-l-etape-2>"
@@ -77,6 +77,8 @@ Je lancerai alors l'installation de la base Neon et de MongoDB, puis les tests a
    ```
 
    L'adresse de `MAIL_FROM` doit être exactement celle validée chez Brevo, sinon les mails sont refusés.
+   Le port 2525 est indispensable sur Render gratuit : les ports 25, 465 et 587 y sont bloqués.
+   Attention au nom de la variable : `MAIL_FROM` (et non `SMTP_FROM`).
 
 ## Étape 6 – Render (mise en ligne)
 

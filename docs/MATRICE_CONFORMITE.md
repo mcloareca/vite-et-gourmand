@@ -7,7 +7,7 @@ Légende :
 - ⚠️ **Écart** : choix différent de l'énoncé, justifié
 
 Les tests « locaux » ont été faits le 18/11/2026 sur un PostgreSQL de test local, **sans MongoDB ni SMTP réels**.
-Le 18/11/2026, les mêmes tests de bout en bout (65 vérifications) ont été rejoués en local **avec les vraies bases Neon (PostgreSQL) et MongoDB Atlas** : tous passent. Le SMTP réel n'est toujours pas testé.
+Le 18/11/2026, les mêmes tests de bout en bout (65 vérifications) ont été rejoués en local **avec les vraies bases Neon (PostgreSQL) et MongoDB Atlas** : tous passent. Le 19/11/2026, l'envoi SMTP réel (Brevo) a été vérifié en production avec le formulaire de contact : message reçu. Les autres e-mails ne sont pas vérifiés en réception.
 Le 19/11/2026, les tests de bout en bout (56 vérifications HTTP ; la réinitialisation du mot de passe, qui lit le lien dans les journaux, n'est vérifiable qu'en local) ont été rejoués **sur le site en production** : tous passent, sauf la requête volontairement malveillante `theme=1 OR 1=1`, bloquée en amont par le pare-feu Cloudflare de Render (403, avant même l'application). Statistiques MongoDB écrites par le serveur Render = commandes PostgreSQL. Données de démonstration réinitialisées ensuite.
 
 ## Fonctionnalités
@@ -56,7 +56,7 @@ Le 19/11/2026, les tests de bout en bout (56 vérifications HTTP ; la réinitial
 | Admin : graphique commandes par menu depuis NoSQL | ✅ | `config/mongo.js`, `views/admin/statistiques.ejs` | testé en local avec MongoDB Atlas : graphique affiché, chiffres identiques à PostgreSQL |
 | Admin : CA par menu, filtres menu et durée | ✅ | `config/mongo.js` | filtres menu et période testés avec Atlas ; total 833,72 € = PostgreSQL |
 | Pas de double comptage dans MongoDB | ✅ | index unique + upsert | testé : 5 commandes → 5 documents après plusieurs changements de statut ; commande annulée exclue |
-| Contact : titre, description, e-mail → mail à l'entreprise | ✅ | `routes/public.js` | test e2e (mail déclenché) |
+| Contact : titre, description, e-mail → mail à l'entreprise | ✅ | `routes/public.js` | test e2e (mail déclenché) ; **reçu en production via Brevo le 19/11/2026** |
 | RGPD | 🟡 | mentions légales, consentement à l'inscription, cookie technique uniquement | pas de suppression de compte en libre-service (sur demande via contact) |
 | Accessibilité RGAA | 🟡 | labels, lien d'évitement, focus visible, `aria-live`, tableaux avec `caption`/`scope` | audit complet (contrastes, lecteur d'écran) à faire |
 | Responsive | ✅ | `public/css/style.css` | navigateur 375 px : pas de défilement horizontal |

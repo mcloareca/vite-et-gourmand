@@ -94,3 +94,10 @@ mot de passe Atlas laissé entre chevrons ; suffixe `-dsz4` ajouté par Render (
 
 - Tableau Kanban public : https://tan-spy-72f.notion.site/41d9578884e98030a108d6349b30cea1?v=41d9578884e98082a505000c4754a05d
 - Lien ajouté dans la gestion de projet (PDF), la copie à rendre, la matrice de conformité et le README
+
+## Étape 7 – 19/11/2026 : envoi réel des e-mails (Brevo)
+
+- Compte Brevo gratuit, expéditeur validé, clé SMTP saisie dans Render (port 2525, les ports 25/465/587 étant bloqués sur Render gratuit)
+- Correction : variable `SMTP_FROM` renommée `MAIL_FROM` dans Render
+- Vérifié : un message du formulaire de contact envoyé depuis la production est reçu dans Gmail
+- Non vérifié : réception des autres types d'e-mails
