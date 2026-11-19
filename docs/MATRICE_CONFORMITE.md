@@ -81,7 +81,7 @@ Le 19/11/2026, les tests de bout en bout (56 vérifications HTTP ; la réinitial
 | Fichiers SQL de création et de données | ✅ `database/` |
 | Manuel d'utilisation PDF avec identifiants | 🟡 `docs/livrables/Manuel_utilisation_Vite_et_Gourmand.pdf` (lien de production et capture des statistiques à ajouter) |
 | Charte graphique PDF (palette, police, 3 maquettes bureau + 3 mobiles) | ✅ `docs/livrables/Charte_graphique_Vite_et_Gourmand.pdf` (wireframes + mockups) |
-| Documentation gestion de projet + lien outil (Trello/Notion/Jira) | 🟡 PDF prêt ; tableau Notion à importer depuis le CSV et à publier |
+| Documentation gestion de projet + lien outil (Trello/Notion/Jira) | ✅ PDF + tableau Kanban Notion public : https://tan-spy-72f.notion.site/41d9578884e98030a108d6349b30cea1?v=41d9578884e98082a505000c4754a05d |
 | Documentation technique (choix techniques, environnement, MCD, diagrammes de cas d'utilisation et de séquence, déploiement) | ✅ `docs/livrables/Documentation_technique_Vite_et_Gourmand.pdf` (à mettre à jour après le déploiement) |
-| Copie à rendre (Word) | 🟡 remplie, liens GitHub et Render inclus ; reste à compléter par l’étudiant : identité, éditeur, veille personnelle, lien Notion |
+| Copie à rendre (Word) | 🟡 remplie, liens GitHub et Render inclus ; liens GitHub, Render et Notion inclus ; reste : identité, veille personnelle, nom du fichier, relecture |
 | Lien de déploiement + identifiants admin | ❌ |

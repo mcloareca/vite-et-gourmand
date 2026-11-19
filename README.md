@@ -13,6 +13,8 @@ les menus et les avis, l'administrateur gère les employés et consulte les stat
 **Application en ligne** : https://vite-et-gourmand-dsz4.onrender.com
 (offre gratuite : la première page peut mettre environ une minute à s’afficher après 15 minutes sans visite)
 
+**Gestion de projet** : [tableau Kanban Notion](https://tan-spy-72f.notion.site/41d9578884e98030a108d6349b30cea1?v=41d9578884e98082a505000c4754a05d)
+
 Identifiants de démonstration : voir `docs/livrables/Manuel_utilisation_Vite_et_Gourmand.pdf`.
 
 Documentation : [docs/GUIDE_ETUDIANT.md](docs/GUIDE_ETUDIANT.md) (fonctionnement), [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md),
