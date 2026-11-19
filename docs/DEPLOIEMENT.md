@@ -1,6 +1,6 @@
 # Déploiement
 
-État au 19/11/2026 : **déployé** sur https://vite-et-gourmand-dsz4.onrender.com (Render, offre gratuite), avec PostgreSQL sur Neon et MongoDB sur Atlas. Envoi réel des e-mails non configuré (SMTP vide : mails écrits dans les journaux Render).
+État au 19/11/2026 : **déployé** sur https://vite-et-gourmand-dsz4.onrender.com (Render, offre gratuite), avec PostgreSQL sur Neon et MongoDB sur Atlas. Envoi réel des e-mails par Brevo (SMTP, port 2525) : vérifié le 19/11/2026 avec le formulaire de contact (message reçu dans une boîte Gmail) ; les autres types d'e-mails ne sont pas encore vérifiés en réception.
 
 Pièges rencontrés lors du déploiement :
 - Atlas n’autorisait que l’adresse IP de création du cluster : ajouter `0.0.0.0/0` dans *IP Access List*, sinon Render ne peut pas se connecter.
@@ -51,9 +51,14 @@ PostgreSQL gratuit de Render écarté : la base expire 30 jours après sa créat
 Un service SMTP gratuit (par exemple Brevo, 300 mails/jour) fournit `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`.
 Sans ces variables, les mails sont seulement écrits dans les journaux de Render.
 
+Pièges rencontrés :
+- l'offre gratuite de Render bloque les ports SMTP 25, 465 et 587 : utiliser **`SMTP_PORT=2525`** (accepté par Brevo) ;
+- l'expéditeur se règle dans **`MAIL_FROM`** (pas `SMTP_FROM`), avec l'adresse validée chez Brevo, sinon l'envoi part au nom d'une adresse non validée.
+
 ## Vérifications après déploiement
 - [ ] La page d'accueil s'affiche en HTTPS
 - [ ] Connexion avec les trois comptes de démonstration
 - [ ] Passer une commande hors Bordeaux et vérifier le prix
 - [ ] La page Statistiques affiche le graphique (MongoDB connecté)
-- [ ] Un mail de bienvenue arrive réellement (SMTP)
+- [x] Un mail du formulaire de contact arrive réellement (SMTP Brevo, 19/11/2026)
+- [ ] Les autres mails (bienvenue, commande, statuts…) arrivent réellement

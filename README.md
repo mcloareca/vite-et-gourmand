@@ -47,7 +47,7 @@ cp .env.example .env
 
 Puis remplir `.env` : `DATABASE_URL` (chaîne de connexion PostgreSQL), `MONGODB_URI` (chaîne MongoDB),
 `SESSION_SECRET` (longue chaîne aléatoire). Les variables `SMTP_*` sont facultatives : si elles sont vides,
-les e-mails sont affichés dans la console au lieu d'être envoyés.
+les e-mails sont affichés dans la console au lieu d'être envoyés. En production, ils passent par Brevo (voir `docs/DEPLOIEMENT.md`).
 
 ### 4. Créer la base et les données de démonstration
 
