@@ -24,6 +24,7 @@ Documentation : [docs/GUIDE_ETUDIANT.md](docs/GUIDE_ETUDIANT.md) (fonctionnement
 
 - [Node.js](https://nodejs.org) 22 ou plus récent (`node -v` pour vérifier)
 - Git
+- Un éditeur de code, par exemple Visual Studio Code
 - Une base PostgreSQL : un projet gratuit [Neon](https://neon.tech) ou un PostgreSQL installé localement
 - Une base MongoDB : un cluster gratuit [MongoDB Atlas](https://www.mongodb.com/atlas) ou un MongoDB local
   (facultatif : sans MongoDB, l'application fonctionne mais la page Statistiques affiche un avertissement)
